@@ -1,20 +1,33 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <color-theme></color-theme>
+      <router-link to="/">Welcome</router-link> |
+      <router-link to="/register">Register</router-link>
     </div>
     <router-view/>
   </div>
 </template>
 
+<script>
+import ColorThemeVue from './components/ColorTheme.vue'
+export default {
+    name:'App',
+    components: {
+        'color-theme': ColorThemeVue
+    }
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  /* -moz-osx-font-smoothing: grayscale; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #nav {

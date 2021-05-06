@@ -1,0 +1,25 @@
+body {
+    --theme-background: #eeeeee;
+    --theme-foreground: #222222;
+    --theme-accent-background: #6101c6;
+    --theme-accent-foreground: #ffffff;
+}
+
+body.theme-dark {
+    --theme-background: #222222;
+    --theme-foreground: #eeeeee;
+    --theme-accent-background: #59ff82;
+    --theme-accent-foreground: #222222;
+}
+
+/* Aqui começa o CSS padrão */
+body {
+    background: var(--theme-background);
+    color: var(--theme-foreground);
+    
+}
+
+button {
+    background: var(--theme-accent-background) !important;
+}
+
