@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click="changeTheme" >Mudar tema do site</button>
+        <b-button @click="changeTheme" >Mudar tema do site</b-button>
     </div>
 </template>
 

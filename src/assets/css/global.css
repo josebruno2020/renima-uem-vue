@@ -1,14 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap');
+
 body {
-    --theme-background: #eeeeee;
+    --theme-background: #F2F6FF;
     --theme-foreground: #222222;
-    --theme-accent-background: #6101c6;
+    --theme-accent-background: #8AABFF;
+    --theme-accent-background-hover: #608dff;
     --theme-accent-foreground: #ffffff;
 }
 
 body.theme-dark {
     --theme-background: #222222;
     --theme-foreground: #eeeeee;
-    --theme-accent-background: #59ff82;
+    --theme-accent-background: #1b5bfc;
+    --theme-accent-background-hover: #0048fd;
     --theme-accent-foreground: #222222;
 }
 
@@ -16,10 +20,15 @@ body.theme-dark {
 body {
     background: var(--theme-background);
     color: var(--theme-foreground);
+    font-family:  'Nunito', Avenir, sans-serif;
     
 }
 
 button {
+    border: var(--theme-accent-background-hover) !important;
     background: var(--theme-accent-background) !important;
+}
+button:hover {
+    background: var(--theme-accent-background-hover) !important;
 }
 
