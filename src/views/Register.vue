@@ -125,6 +125,7 @@ import ImgGuestVue from '../components/ImgGuest.vue'
 import {TheMask} from 'vue-the-mask';
 import LoadingVue from '../components/Loading.vue';
 import ErrorFormVue from '../components/ErrorForm.vue';
+import apiRoutes from '../services/apiRoutes';
 export default {
     name:'Register',
     data:function() {
@@ -152,6 +153,19 @@ export default {
     methods: {
         register() {
             this.loading = true;
+            this.$http.post(apiRoutes.register, {
+                name:this.name,
+                email:this.email,
+                phone:this.phone,
+                password:this.password
+            })
+            .then((res) => {
+                console.log(res);
+                this.loading = false;
+            })
+            .catch(e=> {
+                console.log(e);
+            })
         }
     },
     watch: {

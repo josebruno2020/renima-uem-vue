@@ -3,7 +3,30 @@
         <div class="principal">
             <h1>{{module.name}}</h1>
             <loading v-if="loading"></loading>
-            
+            <template v-else>
+                <b-form @submit.prevent="onSubmit">
+                <div class="form-group" v-for="question in questions" :key="question.id">
+                    <h4>Pergunta {{ question.number }}</h4>
+                    <p class="question">{{ question.question }}</p>
+                    <div v-for="answer in question.answers"
+                            :key="answer.id">
+                        <input 
+                            :name="`answer[${question.id}]`"
+                            :id="`${question.number}${answer.number}`"
+                            type="radio"
+                            
+                        >
+                        <label 
+                            :for="`${question.number}${answer.number}`">{{ answer.answer }}</label>
+                    </div>
+                    
+                </div>
+                <div class="form-submit mt-5">
+                    <b-button v-if="!loading" type="submit">Responder</b-button>
+                </div>
+                
+                </b-form>
+            </template>
         </div>
         
     </main>
@@ -41,7 +64,9 @@ export default {
         
     },
     methods: {
-        
+        onSubmit() {
+            this.loading = true;
+        }
     }
 }
 </script>
@@ -52,5 +77,14 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.question {
+    text-align: justify;
+}
+
+.form-submit {
+    display: flex;
+    justify-content: center;
 }
 </style>

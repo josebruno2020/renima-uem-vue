@@ -52,6 +52,7 @@ import ImgGuestVue from '../components/ImgGuest.vue'
 import LoadingVue from '../components/Loading.vue';
 import ErrorFormVue from '../components/ErrorForm.vue';
 import router from '../router/index';
+import { fillUser } from '../services/utils';
 export default {
     name:'Login',
     data:function() {
@@ -82,8 +83,13 @@ export default {
                 password:this.user.password
             });
             result.then((res) => {
-                let token = res.data.token;
-                localStorage.setItem('user-token', token);
+                let user = JSON.stringify(res.data.user);
+                fillUser(user);
+                let token = localStorage.getItem('user-token');
+                if(token) {
+                    localStorage.removeItem('user-token');
+                }
+                localStorage.setItem('user-token', res.data.token);
                 this.loading = false;
                 router.push('module/preparatory');
             })
@@ -91,10 +97,10 @@ export default {
                 this.loading = false;
                 this.errors.email = 'Usuário e/ou senha inválidos!'
             })
-            .finally(() => {
-                console.log(result);
-            })
-        }
+        },
+        // fillUser(user) {
+            
+        // }
     }
 }
 </script>

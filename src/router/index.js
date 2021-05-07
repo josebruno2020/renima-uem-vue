@@ -36,15 +36,15 @@ const routes = [
     path:'/module',
     name:'Module',
     component:() => import('../views/Modules/Module.vue'),
-    // beforeEnter: function(to, from, next) {
-    //     const token = localStorage.getItem('user-token');
+    beforeEnter: function(to, from, next) {
+        const token = localStorage.getItem('user-token');
 
-    //     if(!token) {
-    //         next('/login');
-    //     } else {
-    //         next();
-    //     }
-    // },
+        if(!token) {
+            next('/login');
+        } else {
+            next();
+        }
+    },
     children: [
         
         {
@@ -65,6 +65,20 @@ const routes = [
             props:true
         }
     ]
+  },
+  {
+    path:'/logout',
+    name:'Logout',
+    beforeEnter: function(to, from, next) {
+        const token = localStorage.getItem('user-token');
+
+        if(!token) {
+            next('/login');
+        } else {
+            next();
+        }
+    },
+    component:() => import('../views/Logout.vue')
   },
   {
     path:'*',

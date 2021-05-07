@@ -1,6 +1,9 @@
 <template>
-    <div>
-        <b-button @click="changeTheme" >Mudar tema do site</b-button>
+    <div class="button">
+        <toggle-button :value="theme"
+                @change="changeTheme"
+               color="#82C7EB"
+               :labels="{checked: 'Claro', unchecked: 'Escuro'}"/>
     </div>
 </template>
 
@@ -9,20 +12,40 @@ export default {
     name:'ColorTheme',
     data:function() {
         return {
-            theme:Boolean,
+            theme:false,
         }
     },
-    mounted() {
-        if (this.isUsingDarkTheme()) {
-            this.setTheme('theme-dark')
+    created() {
+        let theme = localStorage.getItem('theme');
+        if(!theme) {
+            if (this.isUsingDarkTheme()) {
+                this.theme = true;
+                this.setTheme('theme-dark')
+                localStorage.setItem('theme', 'theme-dark');
+            } else {
+                this.theme = false;
+                document.body.className = '';
+                localStorage.setItem('theme', 'blank');
+            }
+        } else {
+            console.log(theme)
+            if(theme != 'theme-dark') {
+                this.theme = true;
+            }
+            this.setTheme(theme);
         }
+        
+        
     },
     methods: {
         changeTheme() {
             let theme = document.body.className;
+            localStorage.removeItem('theme');
             if(theme == 'theme-dark') {
+                localStorage.setItem('theme', 'blank');
                 return document.body.className = '';
             } else {
+                localStorage.setItem('theme', 'theme-dark');
                 return document.body.className = 'theme-dark';
             }
         },
@@ -38,5 +61,8 @@ export default {
 </script>
 
 <style scoped>
-
+.button {
+    display: flex;
+    justify-content: flex-end;
+}
 </style>
