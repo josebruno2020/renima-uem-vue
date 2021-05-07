@@ -82,8 +82,14 @@
                     
                     ></b-form-input>
                 </b-form-group>
-                <p class="mt-2">Ainda não tem cadastro? <router-link to="/register">Registre-se</router-link></p>
-                <b-button type="submit">Fazer login</b-button>
+                <input 
+                    type="checkbox" 
+                    id="use" 
+                    v-model="use"
+                >
+                <label for="use">Li e aceito os <router-link to="/termos"> Termos de Uso</router-link></label>
+                <p class="mt-2">Já tem cadastro? Faça o<router-link to="/login"> login</router-link></p>
+                <b-button type="submit">Fazer cadastro</b-button>
             </b-form>
         </article>
 

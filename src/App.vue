@@ -1,20 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div>
       <color-theme></color-theme>
-      <router-link to="/">Welcome</router-link> |
-      <router-link to="/register">Register</router-link>
+      <menu-principal></menu-principal>
     </div>
     <router-view/>
   </div>
 </template>
 
 <script>
-import ColorThemeVue from './components/ColorTheme.vue'
+import ColorThemeVue from './components/ColorTheme.vue';
+import MenuVue from './components/Menu.vue';
 export default {
     name:'App',
     components: {
-        'color-theme': ColorThemeVue
+        'color-theme': ColorThemeVue,
+        'menu-principal':MenuVue
     }
 }
 </script>
@@ -29,16 +30,5 @@ export default {
   align-items: center;
 }
 
-#nav {
-  padding: 30px;
-}
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

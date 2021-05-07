@@ -6,6 +6,7 @@ body {
     --theme-accent-background: #8AABFF;
     --theme-accent-background-hover: #608dff;
     --theme-accent-foreground: #ffffff;
+    
 }
 
 body.theme-dark {
