@@ -7,12 +7,16 @@
 
 
 <script>
+// import http from '../services/http';
 export default {
     name:'Menu',
     data:function() {
         return {
 
         }
+    },
+    created() {
+        
     },
     mounted() {
         

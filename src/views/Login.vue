@@ -82,12 +82,17 @@ export default {
                 password:this.user.password
             });
             result.then((res) => {
+                let token = res.data.token;
+                localStorage.setItem('user-token', token);
                 this.loading = false;
                 router.push('module/preparatory');
             })
-            .catch(e => {
+            .catch(() => {
                 this.loading = false;
                 this.errors.email = 'Usuário e/ou senha inválidos!'
+            })
+            .finally(() => {
+                console.log(result);
             })
         }
     }
