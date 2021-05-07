@@ -11,7 +11,7 @@ export default {
     name:'NotFound',
     methods: {
         goToRegister() {
-            return router.push({path: 'register'});
+            return router.push({path: '/register'});
         }
     }
 }

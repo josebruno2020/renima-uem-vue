@@ -23,7 +23,6 @@ export default {
 <style>
 #app {
   -webkit-font-smoothing: antialiased;
-  /* -moz-osx-font-smoothing: grayscale; */
   display: flex;
   flex-direction: column;
   justify-content: center;
