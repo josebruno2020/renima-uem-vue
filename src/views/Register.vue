@@ -24,7 +24,7 @@
                         autofocus
                         required
                         ></b-form-input>
-                        <p class="error">{{errors.name}}</p>
+                        <error-form :error="errors.name"></error-form>
                     </b-form-group>
                 </div>
                 
@@ -43,7 +43,7 @@
                         placeholder="(99) 99999-9999"
                         required
                         ></the-mask>
-                        <p class="error">{{errors.phone}}</p>
+                        <error-form :error="errors.phone"></error-form>
                     </b-form-group>
                 </div>
 
@@ -61,7 +61,7 @@
                         placeholder="Seu e-mail"
                         required
                         ></b-input>
-                        <p class="err">{{ errors.email }}</p>
+                        <error-form :error="errors.email"></error-form>
                     </b-form-group>
                 </div>
                 
@@ -79,7 +79,7 @@
                         
                         
                         ></b-form-input>
-                        <p class="error">{{errors.password}}</p>
+                        <error-form :error="errors.password"></error-form>
                     </b-form-group>
                 </div>
 
@@ -97,7 +97,7 @@
                         placeholder="***"
                         
                         ></b-form-input>
-                        <p class="error" style="color:red;">{{errors.passwordConfirm}}</p>
+                        <error-form :error="errors.passwordConfirm"></error-form>
                     </b-form-group>
                 </div>
                 <input 
@@ -108,7 +108,12 @@
             
                 <label class="pl-3" for="use">Li e aceito os <router-link to="/termos"> Termos de Uso</router-link></label>
                 <p class="mt-2">Já tem cadastro? Faça o<router-link to="/login"> login</router-link></p>
-                <b-button :class="{buttonDisabled:thereError}" type="submit">Fazer cadastro</b-button>
+                
+                <b-button v-if="!loading" :class="{buttonDisabled:thereError}" type="submit">Fazer cadastro</b-button>
+            
+                <loading v-else></loading>
+            
+                
             </b-form>
         </article>
 
@@ -118,6 +123,8 @@
 <script>
 import ImgGuestVue from '../components/ImgGuest.vue'
 import {TheMask} from 'vue-the-mask';
+import LoadingVue from '../components/Loading.vue';
+import ErrorFormVue from '../components/ErrorForm.vue';
 export default {
     name:'Register',
     data:function() {
@@ -132,15 +139,20 @@ export default {
             password:null,
             passwordConfirm:null,
             errors:[],
-            use:false
+            use:false,
+            loading:false
         }
     },
     components: {
         'img-guest':ImgGuestVue,
-        'the-mask':TheMask
+        'the-mask':TheMask,
+        'loading':LoadingVue,
+        'error-form':ErrorFormVue
     },
     methods: {
-        
+        register() {
+            this.loading = true;
+        }
     },
     watch: {
         password:function(val) {
@@ -187,10 +199,6 @@ export default {
 .group {
     margin-bottom: 20px;
 }
-.error {
-    color: red;
-    margin-top: 0.25rem;
-    font-size: 0.875em;
-}
+
 
 </style>

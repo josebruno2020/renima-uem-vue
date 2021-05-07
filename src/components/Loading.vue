@@ -10,6 +10,6 @@ export default {
 
 <style scoped>
 .loading {
-    width: 50px;
+    width: 30px;
 }
 </style>

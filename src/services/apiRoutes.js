@@ -1,5 +1,7 @@
 const apiRoutes = {
-    login:'/login'
+    register:'/register',
+    login:'/login',
+    modulePreparatory:'/module/preparatory/index'
 }
 
 export default apiRoutes;

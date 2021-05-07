@@ -6,9 +6,6 @@
         <article class="right d-flex flex-column justify-content-center">
             <h1 class="text-center">Login</h1>
             
-            <div v-if="alert.display" class="alert alert-danger">
-                {{alert.msg}}
-            </div>
             <b-form @submit.prevent="onSubmit">
                 <b-form-group
                     id="input-group-1"
@@ -21,7 +18,9 @@
                     type="email"
                     placeholder="Seu e-mail"
                     required
+                    autofocus
                     ></b-form-input>
+                    <error-form :error="errors.email"></error-form>
                 </b-form-group>
 
                 <b-form-group
@@ -38,7 +37,8 @@
                     ></b-form-input>
                 </b-form-group>
                 <p class="mt-2">Ainda não tem cadastro? <router-link to="/register">Registre-se</router-link></p>
-                <b-button type="submit">Fazer login</b-button>
+                <b-button v-if="!loading" type="submit">Fazer login</b-button>
+                <loading v-else></loading>
             </b-form>
         </article>
 
@@ -49,42 +49,46 @@
 import http from '../services/http.js';
 import apiRoutes from '../services/apiRoutes.js';
 import ImgGuestVue from '../components/ImgGuest.vue'
+import LoadingVue from '../components/Loading.vue';
+import ErrorFormVue from '../components/ErrorForm.vue';
+import router from '../router/index';
 export default {
     name:'Login',
     data:function() {
         return {
-            alert:{
-                display:false,
-                msg:''
-            },
             user: {
                 email:null,
                 password:null
-            }
+            },
+            errors:[],
+            loading:false
         }
     },
     components: {
-        'img-guest':ImgGuestVue
+        'img-guest':ImgGuestVue,
+        'loading':LoadingVue,
+        'error-form':ErrorFormVue
     },
     methods: {
         onSubmit() {
+            this.errors = [];
             if(!this.user.email || !this.user.password) {
-                this.alert.display = true;
-                this.alert.msg = 'Preencha todos os campos!';
+                this.errors.email = 'Preencha todos os campos!';
                 return;
             }
+            this.loading = true;
             const result = http.post(apiRoutes.login, {
                 email:this.user.email,
                 password:this.user.password
             });
             result.then((res) => {
-                console.log(res);
+                this.loading = false;
+                router.push('module/preparatory');
             })
             .catch(e => {
-                console.log(e)
+                this.loading = false;
+                this.errors.email = 'Usuário e/ou senha inválidos!'
             })
-            console.log(this.user.email, this.user.password);
-            console.log('submit')
         }
     }
 }

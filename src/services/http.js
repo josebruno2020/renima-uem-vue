@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let api = 'http://localhost:8080/api/'
+let api = 'http://sistema.uem/api/'
 
 const http = axios.create({
   baseURL: api
@@ -22,7 +22,7 @@ http.interceptors.response.use((response) => {
   return response
 }, (error) => {
   if (error.response.status === 401) {
-    window.location = '#/home'
+    window.location = '#/register'
   }
 
   return Promise.reject(error)
