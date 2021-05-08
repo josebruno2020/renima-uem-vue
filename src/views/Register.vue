@@ -198,7 +198,7 @@ export default {
 
 <style scoped>
 .container-fluid {
-    height: 80vh;
+    height: 90vh;
 }
 .form-control {
     /* padding-top: 20px; */

@@ -1,5 +1,5 @@
 <template>
-    <main class="container-fluid d-flex justify-content-around flex-wrap">
+    <main class="container d-flex justify-content-around flex-wrap">
         <section class="d-flex align-items-center justify-content-center">
             <img-guest></img-guest>
         </section>
@@ -97,17 +97,14 @@ export default {
                 this.loading = false;
                 this.errors.email = 'Usuário e/ou senha inválidos!'
             })
-        },
-        // fillUser(user) {
-            
-        // }
+        }
     }
 }
 </script>
 
 <style scoped>
 .container-fluid {
-    height: 80vh;
+    height: 90vh;
 }
 .form-control {
     margin-bottom: 20px;

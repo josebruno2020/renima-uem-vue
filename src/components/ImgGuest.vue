@@ -14,4 +14,12 @@ export default {
 .img {
     width: 260px;
 }
+
+@media only screen and (max-width: 700px) {
+    .img {
+        width: 180px;
+        margin-bottom: 10%;
+    }
+    
+}  
 </style>

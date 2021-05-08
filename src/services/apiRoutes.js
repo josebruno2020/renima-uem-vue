@@ -2,7 +2,7 @@ const apiRoutes = {
     register:'/register',
     login:'/login',
     menu:'/module',
-    // moduleIndex:'/module/:',
+    moduleIndex:'/module',
     modulePreparatory:'/module/preparatory/index'
 }
 
