@@ -5,10 +5,7 @@
         </section>
         <article class="right d-flex flex-column justify-content-center">
             <h1 class="text-center">Faça o seu cadastro e participe!</h1>
-            
-            <div v-if="alert.display" class="alert alert-danger">
-                {{alert.msg}}
-            </div>
+           
             <b-form @submit.prevent="register">
                 <div class="group">
                     <b-form-group
@@ -107,6 +104,7 @@
                 >
             
                 <label class="pl-3" for="use">Li e aceito os <router-link to="/termos"> Termos de Uso</router-link></label>
+                <error-form :error="errors.use"></error-form>
                 <p class="mt-2">Já tem cadastro? Faça o<router-link to="/login"> login</router-link></p>
                 
                 <b-button v-if="!loading" :class="{buttonDisabled:thereError}" type="submit">Fazer cadastro</b-button>
@@ -126,14 +124,14 @@ import {TheMask} from 'vue-the-mask';
 import LoadingVue from '../components/Loading.vue';
 import ErrorFormVue from '../components/ErrorForm.vue';
 import apiRoutes from '../services/apiRoutes';
+import http from '../services/http';
+import { fillUser } from '../services/utils';
+import router from '../router/index';
+
 export default {
     name:'Register',
     data:function() {
         return {
-            alert:{
-                display:false,
-                msg:''
-            },
             name:null,
             email:null,
             phone:null,
@@ -152,8 +150,14 @@ export default {
     },
     methods: {
         register() {
+            this.errors = [];
+            if(this.use == false) {
+                return this.errors.use = 'Para continuar, aceite os termos de uso!';
+                
+            }
+            this.errors.use = null;
             this.loading = true;
-            this.$http.post(apiRoutes.register, {
+            http.post(apiRoutes.register, {
                 name:this.name,
                 email:this.email,
                 phone:this.phone,
@@ -161,10 +165,17 @@ export default {
             })
             .then((res) => {
                 console.log(res);
+                let user = JSON.stringify(res.data.user);
+                let token = res.data.token;
+                fillUser(user, token);
                 this.loading = false;
+                return router.push('module/preparatory');
             })
             .catch(e=> {
+                this.loading = false;
                 console.log(e);
+                return this.errors.email = 'E-mail já cadastrado no sistema!';
+                
             })
         }
     },
@@ -184,6 +195,11 @@ export default {
             } else {
                 return this.errors.passwordConfirm = null;
             }
+        },
+        use:function(val) {
+            if(val == true) {
+                this.errors.use = null;
+            }
         }
     },
     computed: {
@@ -199,9 +215,6 @@ export default {
 <style scoped>
 .container-fluid {
     height: 90vh;
-}
-.form-control {
-    /* padding-top: 20px; */
 }
 
 .right {

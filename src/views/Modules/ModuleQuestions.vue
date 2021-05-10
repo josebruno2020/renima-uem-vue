@@ -1,9 +1,9 @@
 <template>
     <main class="container">
-        <div class="principal">
-            <h1 class="text-center">Questões do Modulo {{module.name}}</h1>
+        <div class="principal"> 
             <loading v-if="loading"></loading>
             <template v-else>
+                <h1 class="text-center">Questões do Modulo {{module.name}}</h1>
                 <b-form @submit.prevent="onSubmit" class="form mt-5">
                 <div class="form-group" v-for="question in questions" :key="question.id">
                     <h4>Pergunta {{ question.number }}</h4>
@@ -49,21 +49,29 @@ export default {
         'loading':LoadingVue
     },
     mounted() {
-        http.get(apiRoutes.moduleIndex+`/${this.id}/questions`)
-        .then((res) => {
-            this.module = res.data.module;
-            this.questions = res.data.questions;
-            this.loading = false;
-
-        })
-        .catch(e => {
-            this.loading = false;
-            console.log(e)
-        })
+        this.requestQuestions();
+    },
+    watch: {
+        id:function() {
+            this.requestQuestions();
+        }
     },
     methods: {
         onSubmit() {
             alert('legal!!')
+        },
+        requestQuestions() {
+            http.get(apiRoutes.moduleIndex+`/${this.id}/questions`)
+            .then((res) => {
+                this.module = res.data.module;
+                this.questions = res.data.questions;
+                this.loading = false;
+
+            })
+            .catch(e => {
+                this.loading = false;
+                console.log(e)
+            })
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <main class="container d-flex justify-content-around flex-wrap">
+    <main class="container d-flex justify-content-around flex-wrap main">
         <section class="d-flex align-items-center justify-content-center">
             <img-guest></img-guest>
         </section>
@@ -84,12 +84,9 @@ export default {
             });
             result.then((res) => {
                 let user = JSON.stringify(res.data.user);
-                fillUser(user);
-                let token = localStorage.getItem('user-token');
-                if(token) {
-                    localStorage.removeItem('user-token');
-                }
-                localStorage.setItem('user-token', res.data.token);
+                let token = res.data.token;
+                fillUser(user, token);
+                
                 this.loading = false;
                 router.push('module/preparatory');
             })
@@ -103,7 +100,7 @@ export default {
 </script>
 
 <style scoped>
-.container-fluid {
+.container {
     height: 90vh;
 }
 .form-control {

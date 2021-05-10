@@ -2,6 +2,10 @@
     <main class="container">
         <div class="principal">
             <h1>{{module.name}}</h1>
+            <div class="alert alert-danger" v-if="alert">
+                {{alert}}
+                <b-button @click="onSubmit">Tentar novamente</b-button>
+            </div>
             <loading v-if="loading"></loading>
             <template v-else>
                 <b-form @submit.prevent="onSubmit">
@@ -9,12 +13,14 @@
                     <h4>Pergunta {{ question.number }}</h4>
                     <p class="question">{{ question.question }}</p>
                     <div v-for="answer in question.answers"
-                            :key="answer.id">
+                            :key="answer.id" class="answer">
                         <input 
                             :name="`answer[${question.id}]`"
                             :id="`${question.number}${answer.number}`"
                             type="radio"
-                            
+                            :value="answer.number"
+                            v-model="userAnswers[question.id]"
+                            required
                         >
                         <label 
                             :for="`${question.number}${answer.number}`">{{ answer.answer }}</label>
@@ -36,13 +42,17 @@
 import LoadingVue from '../../components/Loading.vue'
 import http from '../../services/http.js';
 import apiRoutes from '../../services/apiRoutes';
+import router from '../../router';
+import { setModuleActive } from '../../services/utils';
 export default {
     name:'Preparatory',
     data:function() {
         return  {
             module:{},
             questions:[],
-            loading:true
+            loading:true,
+            userAnswers:{},
+            alert:null
         }
     },
     components: {
@@ -65,7 +75,21 @@ export default {
     },
     methods: {
         onSubmit() {
+            this.alert = null;
             this.loading = true;
+            http.post(apiRoutes.modulePreparatory, {
+                answer: this.userAnswers
+            })
+            .then(res => {
+                let moduleActive = res.data.module_active;
+                let slug = res.data.slug;
+                setModuleActive(moduleActive);
+                router.push(`/module/${slug}`)
+            })
+            .catch(() => {
+                this.alert = 'Não foi possível responder o formulário. Tente novamente mais tarde!';
+            })
+            
         }
     }
 }
@@ -82,9 +106,18 @@ export default {
 .question {
     text-align: justify;
 }
+.form-group {
+    margin-top:15px;
+}
 
 .form-submit {
     display: flex;
     justify-content: center;
+}
+.answer {
+    margin-bottom: 1%;
+}
+.answer label {
+    padding-left: 2%;
 }
 </style>

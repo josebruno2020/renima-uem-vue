@@ -6,7 +6,9 @@
         <div class="container-fluid mt-3">
 
             <div class="d-flex justify-content-center mt-4">  
-                <span v-html="module.video"></span>
+                <div class="video" v-html="module.video">
+                    
+                </div>
             </div>
 
             <div class="form-group d-flex justify-content-center mt-5">
@@ -32,24 +34,34 @@ export default {
         }
     },
     components: {
-        'loading':LoadingVue
+        'loading':LoadingVue,
     },
     mounted() {
-        http.get(apiRoutes.moduleIndex+`/${this.slug}`)
-        .then((res) => {
-            this.module = res.data.module;
-            this.loading = false;
-        })
-        .catch(e => {
-            this.loading = false;
-            console.log(e)
-        })
+        this.requestModule();
     },
     methods: {
         toQuestions() {
             this.$router.push(`/module/${this.module.id}/questions`);
+        },
+        requestModule() {
+            http.get(apiRoutes.moduleIndex+`/${this.slug}`)
+            .then((res) => {
+                console.log(res);
+                this.module = res.data.module;
+                this.loading = false;
+            })
+            .catch(e => {
+                this.loading = false;
+                console.log(e)
+            })
         }
-    }
+    },
+    watch: {
+        slug:function() {
+            this.requestModule();
+        }
+    },
+   
     
 }
 </script>
