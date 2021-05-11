@@ -1,42 +1,25 @@
 <template>
     <b-nav id="nav">
-        <ul class="container nav d-flex flex-row justify-content-between">
+        
+        <b-navbar toggleable="sm" class="container nav d-flex flex-row justify-content-between">
+            <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
             <span class="d-flex">
-            <li class="nav-item">
-                <router-link class="pr-4"  v-for="module in modules" :key="module.id" :to="`/module/${module.slug}`">
-                    {{module.name}}
-                </router-link>
-            </li>
-            </span>
-            <span>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">{{name}}</a>
-                    <router-link class="nav-link text-danger" to="/logout" >Sair</router-link>
-                </li>
-            </span>
-        </ul>
-        
-        
-            
+                <b-navbar-brand>Reanima UEM</b-navbar-brand>
+
+                <b-collapse id="nav-text-collapse" is-nav>
+                    <b-navbar-nav  >
+                        <router-link v-for="module in modules" :key="module.id" class="mr-4"  :to="`/module/${module.slug}`">
+                            {{module.name}}
+                        </router-link>
+                    </b-navbar-nav>
+                </b-collapse>
+                </span>
+            <span class="d-flex nav-right">
+                <router-link class="nav-link text-danger" to="/logout" >Sair</router-link>
+                <b-nav-text>{{name}}</b-nav-text>
                 
-                   
-                        <!-- <a 
-                            class="nav-link {{$loggedUser->module_active == $module->id ? 'active' : ''}} {{$loggedUser->module_active != $module->id ? 'cursor-desabled' : ''}}" 
-                            aria-current="page" 
-                            href="{{route('module.index', [$module->slug])}}"
-                            title="{{ $module->name }}"
-                            >
-                                {{$module->name}}
-                            @if($loggedUser->module_active > $module->id)
-                            <i class="fas fa-check-circle" style="color:green;"></i>
-                            @else
-                            <i class="far fa-times-circle" style="color: red"></i>
-                            @endif
-                        </a>
-                    </li>
-                  
             </span>
-            <span> -->
+        </b-navbar>
         
     </b-nav>
 </template>
@@ -69,14 +52,16 @@ export default {
 </script>
 
 <style scoped>
-.nav li a{
-    color: var(--theme-foreground) !important;
-    font-weight: bold;
-
-    transition: all 0.5s;
+.navbar-brand, .navbar-text {
+    color: var(--theme-foreground);
+}
+a {
+    color: var(--theme-foreground);
+    margin-right: 20px;
+    transition: all 0.3s;
 }
 
-.nav li a:hover {
+a:hover {
     filter: brightness(50%);
     color: #C4C4C4 !important;
 }
@@ -87,5 +72,11 @@ export default {
 
 .cursor-desabled {
     cursor: not-allowed;
+}
+.nav-right {
+    justify-self: flex-end;
+}
+.router-link-exact-active, .router-link-active {
+    color:var(--theme-accent-background);
 }
 </style>

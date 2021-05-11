@@ -71,14 +71,14 @@ export default {
 </script>
 
 <style scoped>
-.module-video {
+.module_video {
     width: 560px !important;
     height: 350px !important;
 }
 
 
 @media only screen and (max-width: 700px) {
-    .module-video {
+    .module_video {
         width: 320px !important;
         height: 250px !important;
     }

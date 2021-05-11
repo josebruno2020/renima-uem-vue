@@ -4,17 +4,18 @@
         <h1 class="text-center">Modulo {{ module.name }}</h1>
 
         <div class="container-fluid mt-3">
-
-            <div class="d-flex justify-content-center mt-4">  
-                <div class="video" v-html="module.video">
-                    
+            <p>Aulas do Módulo: </p>
+            <div>  
+                <div  class="aulas">
+                    <router-link v-for="aula in module.class" :key="aula.id" class="aula" :to="`/class/${aula.id}`">
+                        {{aula.name}}
+                    </router-link> 
                 </div>
             </div>
 
            
         </div>
 
-        <class :id="1" :module="module"></class>
     </main>
 </template>
 
@@ -22,7 +23,6 @@
 import LoadingVue from '../../components/Loading.vue'
 import apiRoutes from '../../services/apiRoutes'
 import http from '../../services/http'
-import ClassVue from './Class.vue'
 export default {
     name:'ModuleIndex',
     props:['slug'],
@@ -35,7 +35,6 @@ export default {
     },
     components: {
         'loading':LoadingVue,
-        'class':ClassVue
     },
     mounted() {
         this.requestModule();
@@ -68,17 +67,12 @@ export default {
 </script>
 
 <style scoped>
-.module-video {
-    width: 560px !important;
-    height: 350px !important;
+.aulas {
+    display: flex;
+    flex-direction: column;
+   
+} 
+.aula {
+    margin-bottom: 20px;
 }
-
-
-@media only screen and (max-width: 700px) {
-    .module-video {
-        width: 320px !important;
-        height: 250px !important;
-    }
-    
-}  
 </style>
