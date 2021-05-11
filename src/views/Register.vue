@@ -165,11 +165,12 @@ export default {
             })
             .then((res) => {
                 console.log(res);
+                this.$emit('logado', true);
                 let user = JSON.stringify(res.data.user);
                 let token = res.data.token;
                 fillUser(user, token);
                 this.loading = false;
-                return router.push('module/preparatory');
+                return router.push('/module/preparatory');
             })
             .catch(e=> {
                 this.loading = false;

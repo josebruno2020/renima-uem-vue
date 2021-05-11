@@ -83,6 +83,7 @@ export default {
                 password:this.user.password
             });
             result.then((res) => {
+                this.$emit('logado', true);
                 let user = JSON.stringify(res.data.user);
                 let token = res.data.token;
                 fillUser(user, token);
