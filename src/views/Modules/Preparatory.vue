@@ -43,7 +43,7 @@ import LoadingVue from '../../components/Loading.vue'
 import http from '../../services/http.js';
 import apiRoutes from '../../services/apiRoutes';
 import router from '../../router';
-import { setModuleActive } from '../../services/utils';
+import { getUser, setModuleActive } from '../../services/utils';
 export default {
     name:'Preparatory',
     data:function() {
@@ -57,6 +57,19 @@ export default {
     },
     components: {
         'loading':LoadingVue
+    },
+    created() {
+        let user = getUser();
+        if(user.module_active != 1) {
+            http.get(apiRoutes.moduleShow+`/${user.module_active}`)
+            .then((res) => {
+                let slug = res.data.module.slug
+                return router.push(`/module/${slug}`)
+            }) 
+            .catch(e => {
+                console.log(e);
+            })
+        }
     },
     mounted() {
         http.get(apiRoutes.modulePreparatory)

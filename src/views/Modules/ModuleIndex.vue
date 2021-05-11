@@ -21,8 +21,10 @@
 
 <script>
 import LoadingVue from '../../components/Loading.vue'
+import router from '../../router'
 import apiRoutes from '../../services/apiRoutes'
 import http from '../../services/http'
+import { getUser } from '../../services/utils'
 export default {
     name:'ModuleIndex',
     props:['slug'],
@@ -44,10 +46,21 @@ export default {
             this.$router.push(`/module/${this.module.id}/questions`);
         },
         requestModule() {
+            let user = getUser();
             http.get(apiRoutes.moduleIndex+`/${this.slug}`)
             .then((res) => {
-                console.log(res);
                 this.module = res.data.module;
+                if(user.module_active != this.module.id) {
+                    http.get(apiRoutes.moduleShow+`/${user.module_active}`)
+                    .then(res => {
+                        let slug = res.data.module.slug;
+                        return router.push(`/module/${slug}`)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+                    
+                }
                 this.loading = false;
             })
             .catch(e => {

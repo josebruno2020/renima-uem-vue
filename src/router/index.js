@@ -21,7 +21,16 @@ const routes = [
   {
     path:'/register',
     name:'Register',
-    component:() => import('../views/Register.vue')
+    component:() => import('../views/Register.vue'),
+    beforeEnter: function(to, from, next) {
+        const token = localStorage.getItem('user-token');
+
+        if(token) {
+            next('/module/preparatory');
+        } else {
+            next();
+        }
+    }
   },
   {
     path:'/termos',
@@ -31,7 +40,16 @@ const routes = [
   {
     path:'/login',
     name:'Login',
-    component:() => import('../views/Login.vue')
+    component:() => import('../views/Login.vue'),
+    beforeEnter: function(to, from, next) {
+        const token = localStorage.getItem('user-token');
+
+        if(token) {
+            next('/module/preparatory');
+        } else {
+            next();
+        }
+    }
   },
   {
     path:'/fale-conosco',
@@ -75,7 +93,16 @@ const routes = [
   {
     path:'/class/:id',
     props:true,
-    component:() =>import('../views/Modules/Class.vue')
+    component:() =>import('../views/Modules/Class.vue'),
+    beforeEnter: function(to, from, next) {
+        const token = localStorage.getItem('user-token');
+
+        if(!token) {
+            next('/login');
+        } else {
+            next();
+        }
+    },
   },
   {
     path:'/logout',

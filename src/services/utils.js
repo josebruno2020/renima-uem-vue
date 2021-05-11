@@ -12,6 +12,10 @@ export function fillUser(user, tokenUser) {
     localStorage.setItem('user-token', tokenUser);
 }
 
+export function getUser() {
+    return JSON.parse(localStorage.getItem('user'));
+}
+
 export function setModuleActive(moduleActive) {
     let user = JSON.parse(localStorage.getItem('user'));
     

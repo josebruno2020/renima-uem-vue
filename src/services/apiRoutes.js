@@ -3,6 +3,7 @@ const apiRoutes = {
     login:'/login',
     menu:'/module',
     moduleIndex:'/module',
+    moduleShow:'/module/show',
     modulePreparatory:'/module/preparatory/index',
     class:'/class'
 }
