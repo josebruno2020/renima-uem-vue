@@ -14,6 +14,9 @@
                             :name="`answer[${question.id}]`"
                             :id="`${question.number}${answer.number}`"
                             type="radio"
+                            :value="answer.number"
+                            v-model="userAnswers[question.id]"
+                            required
                             
                         >
                         <label 
@@ -43,6 +46,8 @@ export default {
             loading:true,
             module:{},
             questions:[],
+            userAnswers:{},
+            alert:null
         }
     },
     components: {
@@ -58,7 +63,16 @@ export default {
     },
     methods: {
         onSubmit() {
-            alert('legal!!')
+            this.loading = true;
+            http.post(apiRoutes.moduleIndex+`/${this.id}/questions`, {
+                answer:this.userAnswers
+            })
+            .then(res => {
+                console.log(res)
+            })
+            .catch(e => {
+                console.log(e);
+            })
         },
         requestQuestions() {
             http.get(apiRoutes.moduleIndex+`/${this.id}/questions`)

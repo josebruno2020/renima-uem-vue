@@ -1,53 +1,56 @@
 <template>
     <main>
+        <menu-principal></menu-principal>
         <loading v-if="loading"></loading>
-        <h1 class="text-center">Modulo {{ module.name }}</h1>
-
+        <h1 class="text-center">{{module.name}}</h1>
         <div class="container-fluid mt-3">
-
+            <h3 class="text-center">{{classUser.name}}</h3>
             <div class="d-flex justify-content-center mt-4">  
-                <div class="video" v-html="module.video">
-                    
+                <div class="video" v-html="classUser.video">
+                    {{classUser.video}}
                 </div>
             </div>
 
-           
+            <div class="form-group d-flex justify-content-center mt-5">
+                
+                <b-button @click="toQuestions"  class="btn" title="Responder Formulário">Responder formulário</b-button> 
+            </div>
         </div>
-
-        <class :id="1" :module="module"></class>
     </main>
 </template>
 
 <script>
 import LoadingVue from '../../components/Loading.vue'
+import MenuVue from '../../components/Menu.vue'
 import apiRoutes from '../../services/apiRoutes'
 import http from '../../services/http'
-import ClassVue from './Class.vue'
 export default {
     name:'ModuleIndex',
-    props:['slug'],
+    props:['id'],
     data:function() {
         return {
             loading:true,
+            classUser:{},
             module:{}
 
         }
     },
     components: {
         'loading':LoadingVue,
-        'class':ClassVue
+        'menu-principal':MenuVue
     },
     mounted() {
-        this.requestModule();
+        this.requestClass();
     },
     methods: {
         toQuestions() {
             this.$router.push(`/module/${this.module.id}/questions`);
         },
-        requestModule() {
-            http.get(apiRoutes.moduleIndex+`/${this.slug}`)
+        requestClass() {
+            http.get(apiRoutes.class+`/${this.id}`)
             .then((res) => {
                 console.log(res);
+                this.classUser = res.data.class;
                 this.module = res.data.module;
                 this.loading = false;
             })
@@ -58,8 +61,8 @@ export default {
         }
     },
     watch: {
-        slug:function() {
-            this.requestModule();
+        id:function() {
+            this.requestClass();
         }
     },
    

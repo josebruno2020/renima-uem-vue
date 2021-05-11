@@ -3,7 +3,8 @@ const apiRoutes = {
     login:'/login',
     menu:'/module',
     moduleIndex:'/module',
-    modulePreparatory:'/module/preparatory/index'
+    modulePreparatory:'/module/preparatory/index',
+    class:'/class'
 }
 
 export default apiRoutes;

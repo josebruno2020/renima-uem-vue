@@ -68,6 +68,11 @@ const routes = [
     ]
   },
   {
+    path:'/class/:id',
+    props:true,
+    component:() =>import('../views/Modules/Class.vue')
+  },
+  {
     path:'/logout',
     name:'Logout',
     beforeEnter: function(to, from, next) {
