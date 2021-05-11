@@ -1,6 +1,6 @@
 <template>
     <div class="termos container">
-        <h1 class="text-center mb-3">TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO</h1>
+        <h1 class="text-center mb-3 mt-3">TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO</h1>
         <div class="text-justify">
             <p>O Sr. (ª) está sendo convidado (a) a participar do curso “Via aérea e ventilação mecânica em paciente COVID-19”, que será realizado no ano de 2021. </p>
             <p>O curso compreende faces de uma pesquisa sobre manejo de via aérea e ventilação mecânica pelo Mestrado Profissional em Urgência e Emergência da Universidade Estadual de Maringá. Após ser esclarecido sobre as informações do curso/pesquisa, que serão apresentadas a seguir, no caso de aceitar fazer parte do curso, preencha o item ao final do texto confirmando a sua participação. Será gerado uma cópia do TCLE e será encaminhada ao seu e-mail. Em caso de recusa ou desistência ao longo do curso, você não será penalizado. Em caso de dúvida, você pode entrar em contato com a equipe, os dados estão no site.</p>
@@ -12,7 +12,7 @@
         </div>
 
         <div class="center">
-            <router-link to="/register">Voltar</router-link>
+            <router-link to="/register">Ir para Cadastro</router-link>
         </div>
     </div>
 </template>

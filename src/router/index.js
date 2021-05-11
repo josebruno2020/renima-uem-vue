@@ -34,6 +34,11 @@ const routes = [
     component:() => import('../views/Login.vue')
   },
   {
+    path:'/fale-conosco',
+    name:'Contact',
+    component:() => import('../views/Contact.vue')
+  },
+  {
     path:'/module',
     name:'Module',
     component:() => import('../views/Modules/Module.vue'),
