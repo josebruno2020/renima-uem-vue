@@ -50,7 +50,7 @@
 
                     <b-button v-if="!loading" type="submit">Enviar Mensagem</b-button>
                     <loading v-else></loading>
-                    <div v-if="alert" class="alert alert-success mt-4">
+                    <div v-if="alert != null" class="alert alert-success mt-4">
                         {{ alert }}
                     </div>
                 </b-form>
@@ -88,16 +88,14 @@ export default {
                 email:this.email,
                 message:this.message
             })
-            .then((res) => {
-                console.log(res)
-                this.alert = res.data.message;
+            .then(() => {
+                this.alert = 'E-mail enviado com sucesso. Responderemos o quanto antes!';
+                this.loading = false;
             })
             .catch(e => {
                 console.log(e)
+                this.loading = false;
                 this.alert = 'Não foi possível mandar a mensagem. Tente novamente mais tarde!'
-            })
-            .finally(() => {
-                this.alert = false;
             })
         }
     }

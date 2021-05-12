@@ -117,7 +117,7 @@ a:hover {
     justify-self: flex-end;
 }
 .router-link-exact-active, .router-link-active {
-    color:var(--theme-accent-hover-green);
+    color:var(--theme-accent-hover-green) !important;
 }
 
 .menu-img {
