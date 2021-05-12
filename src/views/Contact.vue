@@ -63,6 +63,8 @@
 
 <script>
 import LoadingVue from '../components/Loading.vue';
+import apiRoutes from '../services/apiRoutes';
+import http from '../services/http';
 export default {
     name:'Contact',
     data:function() {
@@ -80,9 +82,23 @@ export default {
     },
     methods: {
         onSubmit() {
-            // this.loading = true;
-            this.alert = 'Mensagem enviada com sucesso!'
-            //Aqui manda request pro back-end
+            this.loading = true;
+            http.post(apiRoutes.mailContact, {
+                name:this.name,
+                email:this.email,
+                message:this.message
+            })
+            .then((res) => {
+                console.log(res)
+                this.alert = res.data.message;
+            })
+            .catch(e => {
+                console.log(e)
+                this.alert = 'Não foi possível mandar a mensagem. Tente novamente mais tarde!'
+            })
+            .finally(() => {
+                this.alert = false;
+            })
         }
     }
 }

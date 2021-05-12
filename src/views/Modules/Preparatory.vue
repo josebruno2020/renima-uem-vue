@@ -78,7 +78,6 @@ export default {
             let result = res.data;
             this.module = result.module;
             this.questions = result.questions;
-            console.log(res)
         })
         .catch(e => {
             this.loading = false;
@@ -95,8 +94,9 @@ export default {
             })
             .then(res => {
                 let moduleActive = res.data.module_active;
-                let slug = res.data.slug;
                 setModuleActive(moduleActive);
+                this.$emit('moduleActive');
+                let slug = res.data.slug;
                 router.push(`/module/${slug}`)
             })
             .catch(() => {

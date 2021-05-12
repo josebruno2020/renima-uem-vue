@@ -5,7 +5,8 @@ const apiRoutes = {
     moduleIndex:'/module',
     moduleShow:'/module/show',
     modulePreparatory:'/module/preparatory/index',
-    class:'/class'
+    class:'/class',
+    mailContact:'/mail/contact',
 }
 
 export default apiRoutes;

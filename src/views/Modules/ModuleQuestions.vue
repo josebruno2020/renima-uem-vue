@@ -3,7 +3,7 @@
         <div class="principal"> 
             <loading v-if="loading"></loading>
             <template v-else>
-                <h1 class="text-center">Questões do Modulo {{module.name}}</h1>
+                <h1 class="text-center">Formulário - {{module.name}}</h1>
                 <b-form @submit.prevent="onSubmit" class="form mt-5">
                 <div class="form-group" v-for="question in questions" :key="question.id">
                     <h4>Pergunta {{ question.number }}</h4>
@@ -68,6 +68,7 @@ export default {
                 answer:this.userAnswers
             })
             .then(res => {
+                this.$emit('moduleActive');
                 console.log(res)
             })
             .catch(e => {

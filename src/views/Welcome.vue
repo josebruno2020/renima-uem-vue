@@ -5,6 +5,7 @@
         <img alt="Emergência" class="img" src="../assets/img/emergency.jpg">
     </div>
     <div class="welcome-text">
+        <h4 class="text-center">Projeto Reanima UEM</h4>
         <p>A área de Ensino do Programa do Mestrado Profissional em Gestão, Tecnologia e Inovação em Urgência e Emergência (PROFURG), desenvolveu este site como uma forma de compartilhar conhecimentos que agregam valor aos profissionais e ajudam a impulsionar o desenvolvimento do setor de saúde.</p>
         <p>
         Uma das iniciativas mais recentes é a de fornecer um ensino remoto dentro do Mestrado Profissional em Gestão, Tecnologia e Inovação em Urgência e Emergência (PROFURG), em conjunto com a Universidade Estadual de Maringá fornecendo informações, orientações e vídeo aulas com conteúdo que possam auxiliar ao profissional da saúde como conteúdo de apoio.</p>

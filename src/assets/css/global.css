@@ -6,6 +6,7 @@ body {
     --theme-accent-background: #8AABFF;
     --theme-accent-background-hover: #608dff;
     --theme-accent-foreground: #ffffff;
+    --theme-accent-hover-green:#008000;
     
 }
 
@@ -15,6 +16,7 @@ body.theme-dark {
     --theme-accent-background: #1b5bfc;
     --theme-accent-background-hover: #0048fd;
     --theme-accent-foreground: #222222;
+    --theme-accent-hover-green:#008000;
 }
 
 /* Aqui começa o CSS padrão */

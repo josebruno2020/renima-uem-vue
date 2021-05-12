@@ -8,17 +8,44 @@
 
                 <b-collapse id="nav-text-collapse" is-nav>
                     <b-navbar-nav  >
-                        <router-link v-for="module in modules" :key="module.id"   :to="`/module/${module.slug}`">
-                            {{module.name}}
-                        </router-link>
+                        <span class="d-flex">
+                            <b-nav-item-dropdown class="navbar-text" right v-for="module in modules" :key="module.id"  >
+                                <!-- Using 'button-content' slot -->
+                                <template #button-content>
+                                    <span class="mr-2 navbar-text">{{module.name}}</span>
+                                    <span v-if="active > module.id">
+                                        <img class="img-status" src="../assets/img/check.png" alt="">
+                                    </span>
+                                    <span v-else-if="active == module.id">
+                                        <img class="img-status" src="../assets/img/active.png" alt="">
+                                    </span>
+                                    <span v-else>
+                                        <img class="img-status" src="../assets/img/error.png" alt="">
+                                    </span>
+                                </template>
+                                <router-link 
+                                    v-for="aula in module.class" 
+                                    :key="aula.id" 
+                                    class="nav-link" 
+                                    :class="{disabled:active != module.id}" 
+                                    :to="`/class/${aula.id}`"
+                                    >
+                                        {{aula.name}}
+                                    </router-link>
+                            </b-nav-item-dropdown>
+                        </span>
                     </b-navbar-nav>
                 </b-collapse>
                 </span>
             <span class="d-flex nav-right">
-                <router-link class="nav-link text-danger" to="/logout" >Sair</router-link>
-                <router-link class="nav-link" to="/fale-conosco">Fale Conosco</router-link>
-                <b-nav-text>{{name}}</b-nav-text>
                 
+                <b-nav-item-dropdown  right class="navbar-text">
+                    <template #button-content>
+                        <span class="navbar-text">{{ name }}</span>
+                    </template>
+                    <router-link class="nav-link" to="/fale-conosco">Fale Conosco</router-link>
+                    <router-link class="nav-link text-danger" to="/logout" >Sair</router-link>
+                </b-nav-item-dropdown>
             </span>
         </b-navbar>
         
@@ -29,17 +56,21 @@
 <script>
 import apiRoutes from '../services/apiRoutes';
 import http from '../services/http';
+import { getUser } from '../services/utils';
 export default {
     name:'Menu',
+    props:['active'],
     data:function() {
         return {
             modules:[],
-            name:''
+            name:'',
+            moduleActive:null
         }
     },
     created() {
-        let user = JSON.parse(localStorage.getItem('user'));
+        let user = getUser();
         this.name = user.name;
+        this.moduleActive = user.module_active;
         http.get(apiRoutes.menu)
         .then((res) => {
             let result = res.data;
@@ -49,6 +80,8 @@ export default {
             console.log(e);
         })
     },
+    methods: {
+    }
 }
 </script>
 
@@ -56,11 +89,14 @@ export default {
 .navbar-brand, .navbar-text, .nav-link {
     color: var(--theme-foreground);
 }
-a {
+a{
     color: var(--theme-foreground);
     margin-right: 20px;
     transition: all 0.3s;
     text-decoration: none;
+}
+.dropdown-toggle {
+    color: var(--theme-foreground);
 }
 
 a:hover {
@@ -72,19 +108,27 @@ a:hover {
     text-align: justify;
 }
 
-.cursor-desabled {
+.disabled{
+    pointer-events: none;
     cursor: not-allowed;
+    
 }
 .nav-right {
     justify-self: flex-end;
 }
 .router-link-exact-active, .router-link-active {
-    color:var(--theme-accent-background);
+    color:var(--theme-accent-hover-green);
 }
 
 .menu-img {
     width: 100px;
     margin-right: 15px;
+}
+
+.img-status {
+    margin-left: 10px;
+    width: 15px;
+    color: red;
 }
 
 </style>

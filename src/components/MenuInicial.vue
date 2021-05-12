@@ -50,4 +50,9 @@ a:hover {
     width: 100px;
 }
 
+.router-link-exact-active {
+    color:var(--theme-accent-hover-green);
+}
+
+
 </style>

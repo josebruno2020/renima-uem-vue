@@ -20,8 +20,8 @@ export default {
     },
     created() {
         let isLogged = localStorage.getItem('logado');
-        if(isLogged) {
-            this.logado = isLogged
+        if(isLogged == 'true') {
+            this.logado = isLogged;
         }
     },
     components: {
@@ -37,6 +37,12 @@ export default {
             return this.logado = val;
 
         }
+    },
+    metaInfo: {
+      // if no subcomponents specify a metaInfo.title, this title will be used
+      title: 'Default Title',
+      // all titles will be injected into this template
+      titleTemplate: '%s | My Awesome Webapp'
     }
 }
 </script>

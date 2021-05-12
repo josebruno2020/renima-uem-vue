@@ -1,7 +1,7 @@
 <template>
     <main>
         <loading v-if="loading"></loading>
-        <h1 class="text-center">Modulo {{ module.name }}</h1>
+        <h1 class="text-center">{{ module.name }}</h1>
 
         <div class="container-fluid mt-3">
             <p>Aulas do Módulo: </p>

@@ -18,10 +18,9 @@ export function getUser() {
 
 export function setModuleActive(moduleActive) {
     let user = JSON.parse(localStorage.getItem('user'));
-    
-
     user.module_active = moduleActive;
-    console.log(user)
+    user = JSON.stringify(user);
+    return localStorage.setItem('user', user);
 
 }
 
