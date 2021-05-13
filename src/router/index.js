@@ -83,6 +83,11 @@ const routes = [
             props:true
         },
         {
+            path:'/finished',
+            props:true,
+            component:() => import('../views/Finished.vue'),
+        },
+        {
             path:':id/questions',
             name:'ModuleQuestions',
             component:() => import('../views/Modules/ModuleQuestions.vue'),
@@ -104,6 +109,7 @@ const routes = [
         }
     },
   },
+  
   {
     path:'/logout',
     name:'Logout',

@@ -24,3 +24,10 @@ export function setModuleActive(moduleActive) {
 
 }
 
+export function setUserFinished() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    user.is_finished = true;
+    user = JSON.stringify(user);
+    return localStorage.setItem('user', user);
+}
+
