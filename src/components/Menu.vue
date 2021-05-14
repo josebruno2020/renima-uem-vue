@@ -3,9 +3,14 @@
         
         <b-navbar toggleable="sm" class="container nav d-flex flex-row justify-content-between">
             <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
-            <span class="d-flex">
-                <img src="../assets/img/uem.png" alt="" class="menu-img">
+            <span class="d-flex ">
+                <img src="../assets/img/uem.png" alt="Uem Logo" class="menu-uem">
 
+                <img src="../assets/img/profurg.png" alt="Profurg Logo" class="menu-img">
+            </span>
+            <span class="d-flex">
+                
+           
                 <b-collapse id="nav-text-collapse" is-nav>
                     <b-navbar-nav  >
                         <span class="d-flex">
@@ -120,6 +125,10 @@ a:hover {
     color:var(--theme-accent-hover-green) !important;
 }
 
+.menu-uem {
+    width: 120px;
+}
+
 .menu-img {
     width: 100px;
     margin-right: 15px;
@@ -130,5 +139,12 @@ a:hover {
     width: 15px;
     color: red;
 }
+
+@media only screen and (max-width: 700px) {
+    .images {
+        display: none !important;
+    }
+    
+}  
 
 </style>

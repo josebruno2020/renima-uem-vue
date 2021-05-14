@@ -1,28 +1,36 @@
 <template>
-    <b-nav id="nav">
-        <ul class="container nav d-flex flex-row justify-content-between">
-            <span class="d-flex">
-                <img src="../assets/img/uem.png" alt="" class="menu-img">
+    <b-nav id="nav" >
+        <b-navbar toggleable="sm" class="container nav d-flex flex-row justify-content-between align-items-center">
+            <span class="d-flex justify-content-between">
+                    <img src="../assets/img/uem.png" alt="" class="menu-uem">
+                    <img src="../assets/img/profurg.png" alt="Profurg Logo" class="menu-img">
             </span>
-            <span class="d-flex">
-                <li class="nav-item">
-                    <router-link to="/">
-                        Página Incial 
-                    </router-link>
-                    <router-link to="/register">
-                        Cadastro
-                    </router-link>
-                    <router-link class="pr-4" to="/fale-conosco">
-                        Fale Conosco 
-                    </router-link> 
-                    <router-link to="/termos">
-                        Termos de Uso
-                    </router-link>
-                </li>
-            </span>
-            
-        </ul>
-        
+            <ul class="">
+                <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
+                
+                <span class="d-flex justify-content-center">
+                    <b-collapse id="nav-text-collapse" is-nav>
+                        <b-navbar-nav  >
+                            <li class="nav-item">
+                                <router-link to="/">
+                                    Página Incial 
+                                </router-link>
+                                <router-link to="/register">
+                                    Cadastro
+                                </router-link>
+                                <router-link class="pr-4" to="/fale-conosco">
+                                    Fale Conosco 
+                                </router-link> 
+                                <router-link to="/termos">
+                                    Termos de Uso
+                                </router-link>
+                            </li>
+                        </b-navbar-nav>
+                    </b-collapse>
+                </span>
+                
+            </ul>
+        </b-navbar>
     </b-nav>
 </template>
 
@@ -45,6 +53,9 @@ a {
 a:hover {
     filter: brightness(50%);
     color: #C4C4C4 !important;
+}
+.menu-uem {
+    width: 120px;
 }
 .menu-img {
     width: 100px;
