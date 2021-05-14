@@ -1,4 +1,4 @@
-# renima-uem-vue
+# Renima UEM - Fron-end
 
 ## Project setup
 ```
