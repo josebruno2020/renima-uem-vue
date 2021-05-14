@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-let api = 'http://sistema.uem/api/'
+// let api = 
 
 const http = axios.create({
-  baseURL: api
+  baseURL: process.env.VUE_APP_API_URL
 })
 
 http.interceptors.request.use((config) => {
