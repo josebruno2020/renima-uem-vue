@@ -102,6 +102,7 @@ export default {
 
 <style scoped>
 .main {
+    height: 80vh;
     display: flex;
     /* flex-direction: column; */
     align-items: center;
@@ -115,7 +116,9 @@ export default {
 
 
 @media only screen and (max-width: 700px) {
-    
+    .main {
+        height: auto !important;
+    }
     .right {
         width: 100%;
     }
