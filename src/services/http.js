@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-// let api = 
+let api = process.env.VUE_APP_API_URL;
 
 const http = axios.create({
-  baseURL: process.env.VUE_APP_API_URL
+  baseURL: api
 })
 
 http.interceptors.request.use((config) => {
