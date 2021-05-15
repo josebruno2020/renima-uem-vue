@@ -1,12 +1,12 @@
 <template>
     <b-nav id="nav" >
         <b-navbar toggleable="sm" class="container nav d-flex flex-row justify-content-between align-items-center">
-            <span class="d-flex justify-content-between">
+            <span class="d-flex justify-content-between align-items-center">
                     <img src="../assets/img/uem.png" alt="" class="menu-uem">
                     <img src="../assets/img/profurg.png" alt="Profurg Logo" class="menu-img">
             </span>
             <ul class="">
-                <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
+                <b-navbar-toggle target="nav-text-collapse" class="mb-4"></b-navbar-toggle>
                 
                 <span class="d-flex justify-content-center">
                     <b-collapse id="nav-text-collapse" is-nav>
@@ -65,5 +65,9 @@ a:hover {
     color:var(--theme-accent-hover-green);
 }
 
-
+@media only screen and (max-width: 700px) {
+    .menu-uem {
+        height: 60px;
+    }
+}
 </style>

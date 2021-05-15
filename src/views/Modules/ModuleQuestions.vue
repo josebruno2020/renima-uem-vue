@@ -14,7 +14,7 @@
 
                     <p class="question">{{ question.question }}</p>
                     <div v-for="answer in question.answers"
-                            :key="answer.id">
+                            :key="answer.id" class="answer">
                         <input 
                             :name="`answer[${question.id}]`"
                             :id="`${question.number}${answer.number}`"
@@ -40,6 +40,7 @@
             <template v-else-if="isSent">
                 <modal 
                     @emptyModal="emptyModal"
+                    @moduleActive="setModuleActive"
                     :title="modal.title" 
                     :msg="modal.msg"
                     :img="modal.img"
@@ -154,6 +155,9 @@ export default {
             this.modal.title = '';
             this.modal.img = '';
             this.modal.msg = '';
+        },
+        setModuleActive() {
+            return this.$emit('moduleActive');
         }
 
     }
@@ -166,17 +170,28 @@ export default {
     flex-direction: column;
     align-items: center;
 }
-.form {
-    width: 100%;
-}
 
 .question {
     text-align: justify;
+}
+.form-group {
+    margin-top:15px;
 }
 
 .form-submit {
     display: flex;
     justify-content: center;
+}
+.answer {
+    margin-bottom: 1%;
+}
+.answer label {
+    padding-left: 2%;
+}
+.principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .incorrectQuestion {
     color: var(--theme-text-danger);

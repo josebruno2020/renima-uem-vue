@@ -1,5 +1,5 @@
 <template>
-    <main class="container-fluid d-flex justify-content-around flex-wrap">
+    <main class="main">
         <section class="d-flex align-items-center justify-content-center">
             <img-guest></img-guest>
         </section>
@@ -214,12 +214,15 @@ export default {
 </script>
 
 <style scoped>
-.container-fluid {
-    height: 90vh;
+.main {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
-
 .right {
-    max-width: 50%;
+    padding: 0% 8%;
 }
 .buttonDisabled {
     cursor: no-drop;
@@ -227,6 +230,7 @@ export default {
 .group {
     margin-bottom: 20px;
 }
+
 
 
 </style>

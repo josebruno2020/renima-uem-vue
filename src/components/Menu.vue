@@ -144,6 +144,11 @@ a:hover {
     .images {
         display: none !important;
     }
+
+    .menu-uem {
+        height: 60px;
+    }
+
     
 }  
 

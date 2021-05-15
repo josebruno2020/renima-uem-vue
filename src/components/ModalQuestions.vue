@@ -34,9 +34,9 @@ export default {
         toNextModule() {
             http.get(apiRoutes.updateModuleActive)
             .then(res => {
-                console.log(res)
                 let moduleActive = res.data.module_active;
                 setModuleActive(moduleActive)
+                this.$emit('moduleActive');
                 //Concluiu os modulos
                 if(res.data.is_finished == true) {
                     setUserFinished();

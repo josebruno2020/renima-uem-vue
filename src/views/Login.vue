@@ -1,5 +1,5 @@
 <template>
-    <main class="container d-flex justify-content-around flex-wrap main">
+    <main class="main">
         <section class="d-flex align-items-center justify-content-center">
             <img-guest></img-guest>
         </section>
@@ -101,21 +101,24 @@ export default {
 </script>
 
 <style scoped>
-.container {
-    height: 90vh;
-}
-.form-control {
-    margin-bottom: 20px;
-}
-
-.right {
-    max-width: 50%;
-}
-
-.login {
+.main {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /* flex-direction: column; */
     align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.right {
+    padding: 0% 8%;
+}
+
+
+
+@media only screen and (max-width: 700px) {
+    
+    .right {
+        width: 100%;
+    }
+    
 }
 </style>
