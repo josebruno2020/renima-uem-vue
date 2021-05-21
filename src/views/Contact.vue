@@ -1,5 +1,6 @@
 <template>
     <main class="container">
+        <vue-title title="Fale Conosco"></vue-title>
         <h1 class="text-center">Fale Conosco</h1>
         <p class="text-center mt-3">Está com alguma dúvida? Não deixe de nos mandar uma mensagem! 😉</p>
         <div class="container-fluid mt-3">
@@ -63,6 +64,7 @@
 
 <script>
 import LoadingVue from '../components/Loading.vue';
+import VueTitleVue from '../components/VueTitle.vue';
 import apiRoutes from '../services/apiRoutes';
 import http from '../services/http';
 export default {
@@ -78,7 +80,8 @@ export default {
         }
     },
     components: {
-        'loading':LoadingVue
+        'loading':LoadingVue,
+        'vue-title':VueTitleVue
     },
     methods: {
         onSubmit() {

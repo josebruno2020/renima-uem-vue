@@ -1,5 +1,6 @@
 <template>
     <main class="main">
+        <vue-title title="Login"></vue-title>
         <section class="d-flex align-items-center justify-content-center">
             <img-guest></img-guest>
         </section>
@@ -53,6 +54,7 @@ import LoadingVue from '../components/Loading.vue';
 import ErrorFormVue from '../components/ErrorForm.vue';
 import router from '../router/index';
 import { fillUser } from '../services/utils';
+import VueTitleVue from '../components/VueTitle.vue';
 export default {
     name:'Login',
     data:function() {
@@ -68,7 +70,8 @@ export default {
     components: {
         'img-guest':ImgGuestVue,
         'loading':LoadingVue,
-        'error-form':ErrorFormVue
+        'error-form':ErrorFormVue,
+        'vue-title':VueTitleVue
     },
     methods: {
         onSubmit() {

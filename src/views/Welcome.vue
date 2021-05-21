@@ -1,5 +1,6 @@
 <template>
   <div class="home container">
+    <vue-title title="Home"></vue-title>
     <h1 class="text-center mb-3 mt-3">Seja Bem-vindo!</h1>
     <div  class="center mt-3 mb-3">
         <img alt="Emergência" class="img" src="../assets/img/emergency.jpg">
@@ -22,6 +23,7 @@
 
 <script>
 import router from '../router/index.js';
+import VueTitle from '../components/VueTitle.vue';
 export default {
   name: 'Welcome',
   data:function() {
@@ -30,7 +32,7 @@ export default {
       }
   },
   components: {
-    
+    'vue-title':VueTitle
   },
   methods: {
       goToRegister() {

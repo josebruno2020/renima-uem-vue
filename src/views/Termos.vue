@@ -1,5 +1,6 @@
 <template>
     <div class="termos container">
+        <vue-title title="Termos de Uso"></vue-title>
         <h1 class="text-center mb-3 mt-3">TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO</h1>
         <div class="text-justify">
             <p>O Sr. (ª) está sendo convidado (a) a participar do curso “Via aérea e ventilação mecânica em paciente COVID-19”, que será realizado no ano de 2021. </p>
@@ -18,8 +19,12 @@
 </template>
 
 <script>
+import VueTitleVue from '../components/VueTitle.vue'
 export default {
-    name:'Termos'
+    name:'Termos',
+    components: {
+        'vue-title':VueTitleVue
+    }
 }
 </script>
 

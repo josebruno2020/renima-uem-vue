@@ -1,5 +1,6 @@
 <template>
     <main class="container">
+        <vue-title title="Formulário"></vue-title>
         <div class="principal"> 
             <loading v-if="loading"></loading>
             <template v-else-if="!loading && !isSent">
@@ -54,6 +55,7 @@
 <script>
 import LoadingVue from '../../components/Loading.vue'
 import ModalQuestionsVue from '../../components/ModalQuestions.vue'
+import VueTitle from '../../components/VueTitle.vue'
 import apiRoutes from '../../services/apiRoutes'
 import http from '../../services/http'
 export default {
@@ -78,7 +80,8 @@ export default {
     },
     components: {
         'loading':LoadingVue,
-        'modal':ModalQuestionsVue
+        'modal':ModalQuestionsVue,
+        'vue-title':VueTitle
     },
     mounted() {
         this.requestQuestions();

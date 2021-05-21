@@ -1,5 +1,6 @@
 <template>
     <main class="main">
+        <vue-title title="Cadastro"></vue-title>
         <section class="d-flex align-items-center justify-content-center">
             <img-guest></img-guest>
         </section>
@@ -127,6 +128,7 @@ import apiRoutes from '../services/apiRoutes';
 import http from '../services/http';
 import { fillUser } from '../services/utils';
 import router from '../router/index';
+import VueTitleVue from '../components/VueTitle.vue';
 
 export default {
     name:'Register',
@@ -146,7 +148,8 @@ export default {
         'img-guest':ImgGuestVue,
         'the-mask':TheMask,
         'loading':LoadingVue,
-        'error-form':ErrorFormVue
+        'error-form':ErrorFormVue,
+        'vue-title':VueTitleVue
     },
     methods: {
         register() {

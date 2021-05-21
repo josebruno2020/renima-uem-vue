@@ -1,5 +1,6 @@
 <template>
     <main class="container">
+        <vue-title title="Módulo Preparatório"></vue-title>
         <div class="principal">
             <h1>{{module.name}}</h1>
             <div class="alert alert-danger" v-if="alert">
@@ -44,6 +45,7 @@ import http from '../../services/http.js';
 import apiRoutes from '../../services/apiRoutes';
 import router from '../../router';
 import { getUser, setModuleActive } from '../../services/utils';
+import VueTitle from '../../components/VueTitle.vue';
 export default {
     name:'Preparatory',
     data:function() {
@@ -56,7 +58,8 @@ export default {
         }
     },
     components: {
-        'loading':LoadingVue
+        'loading':LoadingVue,
+        'vue-title':VueTitle
     },
     created() {
         let user = getUser();

@@ -1,9 +1,9 @@
 <template>
     <b-nav id="nav">
         
-        <b-navbar toggleable="sm" class="container nav d-flex flex-row justify-content-between">
+        <b-navbar toggleable="sm" class="container nav d-flex flex-row justify-content-between align-items-center">
             <b-navbar-toggle target="nav-text-collapse"></b-navbar-toggle>
-            <span class="d-flex ">
+            <span class="d-flex align-items-center">
                 <img src="../assets/img/uem.png" alt="Uem Logo" class="menu-uem">
 
                 <img src="../assets/img/profurg.png" alt="Profurg Logo" class="menu-img">
@@ -22,7 +22,7 @@
                                         <img class="img-status" src="../assets/img/check.png" alt="">
                                     </span>
                                     <span v-else-if="active == module.id">
-                                        <img class="img-status" src="../assets/img/active.png" alt="">
+                                        <img class="img-status" src="../assets/img/tasks.png" alt="">
                                     </span>
                                     <span v-else>
                                         <img class="img-status" src="../assets/img/error.png" alt="">
@@ -108,11 +108,6 @@ a:hover {
     filter: brightness(50%);
     color: #C4C4C4 !important;
 }
-
-.question {
-    text-align: justify;
-}
-
 .disabled{
     pointer-events: none;
     cursor: not-allowed;
@@ -141,9 +136,6 @@ a:hover {
 }
 
 @media only screen and (max-width: 700px) {
-    .images {
-        display: none !important;
-    }
 
     .menu-uem {
         height: 60px;

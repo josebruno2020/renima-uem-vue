@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <h1>Página não encontrada... 😒</h1>
+    <main >
+        <h1 class="text-center">Página não encontrada... 😒</h1>
         <button class="btn" @click="goToRegister">Ir ao Cadastro</button>
-    </div>
+    </main>
 </template>
 
 <script>
@@ -16,3 +16,12 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+</style>

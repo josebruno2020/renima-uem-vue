@@ -1,5 +1,6 @@
 <template>
     <main>
+        <vue-title :title="title"></vue-title>
         <menu-principal :active="module.id"></menu-principal>
         <loading v-if="loading"></loading>
         <h1 class="text-center">{{module.name}}</h1>
@@ -23,6 +24,7 @@
 <script>
 import LoadingVue from '../../components/Loading.vue'
 import MenuVue from '../../components/Menu.vue'
+import VueTitle from '../../components/VueTitle.vue'
 import router from '../../router'
 import apiRoutes from '../../services/apiRoutes'
 import http from '../../services/http'
@@ -34,13 +36,15 @@ export default {
         return {
             loading:true,
             classUser:{},
-            module:{}
+            module:{},
+            title:''
 
         }
     },
     components: {
         'loading':LoadingVue,
-        'menu-principal':MenuVue
+        'menu-principal':MenuVue,
+        'vue-title':VueTitle
     },
     mounted() {
         this.requestClass();
@@ -54,6 +58,7 @@ export default {
             http.get(apiRoutes.class+`/${this.id}`)
             .then((res) => {
                 this.classUser = res.data.class;
+                this.title = this.classUser.name;
                 this.module = res.data.module;
                 if(user.module_active != this.module.id) {
                     http.get(apiRoutes.moduleShow+`/${user.module_active}`)
