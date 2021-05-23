@@ -2,11 +2,11 @@
     export default {
         name: 'vue-title',
         props: {
-            title:''
+            title:null
         },
         computed: {
             separate:function() {
-                if(this.title != '') {
+                if(this.title) {
                     return '-';
                 } else {
                     return '';
@@ -21,8 +21,6 @@
                     document.title = this.title+` ${this.separate} `+"Reanima UEM";
                 }
             }
-        },
-        render () {
         },
     }
 </script>
