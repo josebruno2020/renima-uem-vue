@@ -7,7 +7,8 @@ const apiRoutes = {
     modulePreparatory:'/module/preparatory/index',
     class:'/class',
     mailContact:'/mail/contact',
-    updateModuleActive:'/update-module-active'
+    updateModuleActive:'/update-module-active',
+    emailCertificate:'/certificado/email'
 }
 
 export default apiRoutes;

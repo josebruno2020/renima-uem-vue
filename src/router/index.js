@@ -87,6 +87,7 @@ const routes = [
             props:true,
             component:() => import('../views/Finished.vue'),
         },
+        
         {
             path:':id/questions',
             name:'ModuleQuestions',
@@ -109,6 +110,7 @@ const routes = [
         }
     },
   },
+  
   
   {
     path:'/logout',
