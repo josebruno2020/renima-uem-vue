@@ -1,5 +1,6 @@
 <template>
     <main>
+        <vue-title title="Parabéns"></vue-title>
         <h1 class="text-center">Parabéns! 🎉</h1>
 
         <div class="text-center mt-5">
@@ -23,6 +24,8 @@
 <script>
 import AlertVue from '../components/Alert.vue';
 import LoadingVue from '../components/Loading.vue';
+import VueTitleVue from '../components/VueTitle.vue';
+import router from '../router';
 import apiRoutes from '../services/apiRoutes';
 import http from '../services/http';
 import { getUser } from '../services/utils';
@@ -41,11 +44,16 @@ export default {
     },
     components: {
         'loading':LoadingVue,
-        'alert':AlertVue
+        'alert':AlertVue,
+        'vue-title':VueTitleVue
     },
     mounted() {
         let user = getUser();
-        this.userId = JSON.stringify(user.id);
+        //bloqueio de quem não terminou os módulos;
+        if(user.is_finished == 0 || user.is_finished == false) {
+            return router.push('/module/preparatory');
+        }
+        this.userId = user.id;
         this.certificateUrl = webRoutes.certificate+this.userId;
     },
     methods: {
