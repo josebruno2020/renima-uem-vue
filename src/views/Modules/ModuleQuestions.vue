@@ -178,7 +178,7 @@ export default {
     text-align: justify;
 }
 .form-group {
-    margin-top:15px;
+    margin-top:5%;
 }
 
 .form-submit {
@@ -186,7 +186,9 @@ export default {
     justify-content: center;
 }
 .answer {
-    margin-bottom: 1%;
+    margin-bottom: 2%;
+    display: flex;
+    align-items: center;
 }
 .answer label {
     padding-left: 2%;
