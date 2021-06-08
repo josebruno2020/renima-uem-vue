@@ -63,6 +63,10 @@ export default {
     },
     created() {
         let user = getUser();
+        //Redirecionamento para quem já concluiu todos os módulos;
+        if(user.is_finished == true || user.is_finished == 1) {
+            return router.push('/finished');
+        }
         if(user.module_active != 1) {
             http.get(apiRoutes.moduleShow+`/${user.module_active}`)
             .then((res) => {
