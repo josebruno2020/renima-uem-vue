@@ -13,12 +13,16 @@
                     >
                         <b-form-input
                         id="name"
-                        v-model="name"
+                        name="name"
+                        data-vv-as="nome"
+                        v-model="contact.name"
                         type="text"
                         placeholder="Seu Nome"
-                        required
+                        v-validate="'required'"
+                        :class="{'is-danger':errors.has('name')}"
                         autofocus
                         ></b-form-input>
+                        <error-form :error="errors.first('name')"></error-form>
                     </b-form-group>
 
                     <b-form-group
@@ -28,11 +32,15 @@
                     >
                         <b-form-input
                         id="email"
-                        v-model="email"
+                        name="email"
+                        data-vv-as="e-mail"
+                        v-model="contact.email"
                         type="email"
                         placeholder="Seu e-mail"
-                        required
+                        v-validate="'required|email'"
+                        :class="{'is-danger':errors.has('email')}"
                         ></b-form-input>
+                        <error-form :error="errors.first('email')"></error-form>
                     </b-form-group>
 
 
@@ -43,10 +51,14 @@
                     >
                         <b-form-textarea
                         id="message"
-                        v-model="message"
+                        name="message"
+                        data-vv-as="mensagem"
+                        v-model="contact.message"
                         placeholder="Escreva sua mensagem aqui..."
-                        required
+                        v-validate="'required|max:300'"
+                        :class="{'is-danger':errors.has('message')}"
                         ></b-form-textarea>
+                        <error-form :error="errors.first('message')"></error-form>
                     </b-form-group>
 
                     <b-button v-if="!loading" type="submit">Enviar Mensagem</b-button>
@@ -67,39 +79,45 @@ import LoadingVue from '../components/Loading.vue';
 import VueTitleVue from '../components/VueTitle.vue';
 import apiRoutes from '../services/apiRoutes';
 import http from '../services/http';
+import Contact from '../models/Contact';
+import ErrorForm from '../components/ErrorForm.vue';
 export default {
     name:'Contact',
     data:function() {
         return {
-            name:null,
-            email:null,
-            message:null,
+            contact: new Contact(),
             loading:false,
             alert:null
-
         }
     },
     components: {
         'loading':LoadingVue,
-        'vue-title':VueTitleVue
+        'vue-title':VueTitleVue,
+        ErrorForm
     },
     methods: {
         onSubmit() {
-            this.loading = true;
-            http.post(apiRoutes.mailContact, {
-                name:this.name,
-                email:this.email,
-                message:this.message
+            this.$validator.validateAll()
+            .then(success => {
+                if(success) {
+                    this.loading = true;
+                    http.post(apiRoutes.mailContact, {
+                        name:this.contact.name,
+                        email:this.contact.email,
+                        message:this.contact.message
+                    })
+                    .then(() => {
+                        this.alert = 'E-mail enviado com sucesso. Responderemos o quanto antes!';
+                        this.loading = false;
+                    })
+                    .catch(e => {
+                        console.log(e)
+                        this.loading = false;
+                        this.alert = 'Não foi possível mandar a mensagem. Tente novamente mais tarde!'
+                    })
+                }
             })
-            .then(() => {
-                this.alert = 'E-mail enviado com sucesso. Responderemos o quanto antes!';
-                this.loading = false;
-            })
-            .catch(e => {
-                console.log(e)
-                this.loading = false;
-                this.alert = 'Não foi possível mandar a mensagem. Tente novamente mais tarde!'
-            })
+            
         }
     }
 }
@@ -117,8 +135,11 @@ export default {
     width: 50%;
 }
 
-.form-control {
+.form-group {
     margin-bottom: 20px;
 }
 
+.is-danger {
+    border-color: #dc3545;
+}
 </style>

@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div>
-      <vue-title title=""></vue-title>
       <color-theme></color-theme>
       <menu-inicial v-if="!logado"></menu-inicial>
     </div>
@@ -13,7 +12,6 @@
 <script>
 import ColorThemeVue from './components/ColorTheme.vue';
 import MenuInicialVue from './components/MenuInicial.vue';
-import VueTitle from './components/VueTitle.vue';
 export default {
     name:'App',
     data:function() {
@@ -30,7 +28,6 @@ export default {
     components: {
         'color-theme': ColorThemeVue,
         'menu-inicial':MenuInicialVue,
-        VueTitle
     },
     methods: {
         setLogado(val) {

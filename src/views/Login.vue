@@ -6,7 +6,7 @@
         </section>
         <article class="right d-flex flex-column justify-content-center">
             <h1 class="text-center">Login</h1>
-            
+            <error-form v-if="msg" :error="msg"></error-form>
             <b-form @submit.prevent="onSubmit">
                 <b-form-group
                     id="input-group-1"
@@ -14,15 +14,22 @@
                     label-for="email"
                 >
                     <b-form-input
+                    name="email"
+                    data-vv-as="e-mail"
                     id="email"
                     v-model="user.email"
                     type="email"
                     placeholder="Seu e-mail"
-                    required
                     autofocus
+                    v-validate="'required|email'"
+                    @focus="msg = ''"
+                    :class="{'is-danger':errors.has('email')}"
                     ></b-form-input>
-                    <error-form :error="errors.email"></error-form>
+                    
+                    <error-form :error="errors.first('email')"></error-form>
+                    
                 </b-form-group>
+                
 
                 <b-form-group
                     id="input-group-2"
@@ -30,12 +37,16 @@
                     label-for="password"
                 >
                     <b-form-input
+                    name="password"
+                    data-vv-as="senha"
                     id="password"
                     v-model="user.password"
                     type="password"
                     placeholder="***"
-                    
+                    v-validate="'required'"
+                    :class="{'is-danger':errors.has('password')}"
                     ></b-form-input>
+                    <error-form :error="errors.first('password')"></error-form>
                 </b-form-group>
                 <p class="mt-2">Ainda não tem cadastro? <router-link to="/register">Registre-se</router-link></p>
                 <b-button v-if="!loading" type="submit">Fazer login</b-button>
@@ -55,16 +66,14 @@ import ErrorFormVue from '../components/ErrorForm.vue';
 import router from '../router/index';
 import { fillUser } from '../services/utils';
 import VueTitleVue from '../components/VueTitle.vue';
+import Login from '../models/Login';
 export default {
     name:'Login',
     data:function() {
         return {
-            user: {
-                email:null,
-                password:null
-            },
-            errors:[],
-            loading:false
+            user: new Login(),
+            loading:false,
+            msg:'',
         }
     },
     components: {
@@ -75,29 +84,30 @@ export default {
     },
     methods: {
         onSubmit() {
-            this.errors = [];
-            if(!this.user.email || !this.user.password) {
-                this.errors.email = 'Preencha todos os campos!';
-                return;
-            }
-            this.loading = true;
-            const result = http.post(apiRoutes.login, {
-                email:this.user.email,
-                password:this.user.password
-            });
-            result.then((res) => {
-                this.$emit('logado', true);
-                let user = JSON.stringify(res.data.user);
-                let token = res.data.token;
-                fillUser(user, token);
-                
-                this.loading = false;
-                router.push('module/preparatory');
+            this.$validator.validateAll()
+            .then(success => {
+                if(success) {
+                    this.loading = true;
+                    const result = http.post(apiRoutes.login, {
+                        email:this.user.email,
+                        password:this.user.password
+                    });
+                    result.then((res) => {
+                        this.$emit('logado', true);
+                        let user = JSON.stringify(res.data.user);
+                        let token = res.data.token;
+                        fillUser(user, token);
+                        
+                        this.loading = false;
+                        router.push({name:'Preparatory'});
+                    })
+                    .catch(() => {
+                        this.loading = false;
+                        this.msg = 'Usuário e/ou senha inválidos!'
+                    })
+                }
             })
-            .catch(() => {
-                this.loading = false;
-                this.errors.email = 'Usuário e/ou senha inválidos!'
-            })
+            
         }
     }
 }
@@ -115,6 +125,11 @@ export default {
 .right {
     padding: 0% 8%;
 }
+
+.is-danger {
+    border-color: #dc3545;
+}
+
 
 
 

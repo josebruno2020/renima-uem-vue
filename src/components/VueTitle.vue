@@ -1,8 +1,15 @@
+<template>
+    <title></title>
+</template>
+
 <script>
     export default {
         name: 'vue-title',
         props: {
-            title:null
+            title: {
+                required:false,
+                type:String
+            }
         },
         computed: {
             separate:function() {
