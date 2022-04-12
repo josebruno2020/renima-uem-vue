@@ -46,9 +46,9 @@
                 
                 <b-nav-item-dropdown  right class="navbar-text">
                     <template #button-content>
-                        <span class="navbar-text">{{ name }}</span>
+                        <span class="navbar-text">{{ user.name }}</span>
                     </template>
-                    <router-link class="nav-link" to="/fale-conosco">Fale Conosco</router-link>
+                    <router-link class="nav-link" v-if="user.is_finished" to="/finished">Certificado</router-link>
                     <router-link class="nav-link text-danger" to="/logout" >Sair</router-link>
                 </b-nav-item-dropdown>
             </span>
@@ -65,25 +65,22 @@ import { getUser } from '../services/utils';
 export default {
     name:'Menu',
     props:['active'],
-    data:function() {
+    data() {
         return {
             modules:[],
-            name:'',
-            moduleActive:null
+            moduleActive:null,
+            user: {}
         }
     },
     created() {
-        let user = getUser();
-        this.name = user.name;
-        this.moduleActive = user.module_active;
+        this.user = getUser();
+        this.moduleActive = this.user.module_active;
         http.get(apiRoutes.menu)
         .then((res) => {
             let result = res.data;
             this.modules = result.modules;
         })
-        .catch(e=> {
-            console.log(e);
-        })
+        .catch(e=> console.log(e))
     },
     methods: {
     }

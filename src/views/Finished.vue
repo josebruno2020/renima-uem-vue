@@ -11,7 +11,7 @@
 
         <loading class="mt-5" v-if="loading"></loading>
         <div class="actions mt-5" v-else-if="!loading && !emailSend">
-            <a :href="certificateUrl" title="Visualizar certificado">Visualizar certificado</a>
+            <a :href="certificateUrl" target="_blank" title="Visualizar certificado">Visualizar certificado</a>
             <b-button @click="sendCertificate" title="Mandar por e-mail">Mandar por e-mail</b-button>
         </div>
 

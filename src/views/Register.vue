@@ -1,10 +1,10 @@
 <template>
-    <main class="main">
+    <main class="d-flex flex-wrap mt-5">
         <vue-title title="Cadastro"></vue-title>
-        <section class="d-flex align-items-center justify-content-center">
+        <section class="middle d-flex justify-content-center">
             <img-guest></img-guest>
         </section>
-        <article class="right d-flex flex-column justify-content-center">
+        <article class="middle  d-flex flex-column justify-content-center">
             <h1 class="text-center">Faça o seu cadastro e participe!</h1>
            <error-form v-if="msg" :error="msg"></error-form>
             <b-form @submit.prevent="register">
@@ -187,9 +187,13 @@ export default {
                             this.loading = false;
                             return router.push({name:'Preparatory'});
                         })
-                        .catch(e=> {
+                        .catch(({response})=> {
                             this.loading = false;
-                            console.log(e);
+
+                            if (response.status === 422) {
+                              return this.msg = 'E-mail já está em uso.';
+                            }
+
                             return this.msg = 'Não foi possível processar sua informação. Tente novamente mais tarde.';
                             
                         })
@@ -202,25 +206,24 @@ export default {
 </script>
 
 <style scoped>
-.main {
-    display: flex;
-    /* flex-direction: column; */
-    align-items: center;
-    justify-content: space-around;
-    flex-wrap: wrap;
+.middle {
+  width: 50vw;
+  padding: 0 8%;
 }
-.right {
-    padding: 0% 8%;
-}
-.buttonDisabled {
-    cursor: no-drop;
-}
+
 .group {
     margin-bottom: 20px;
 }
 
 .is-danger {
     border-color: #dc3545;
+}
+
+@media only screen and (max-width: 700px) {
+  .middle {
+    width: 100vw;
+  }
+
 }
 
 

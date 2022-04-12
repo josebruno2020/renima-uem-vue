@@ -1,10 +1,10 @@
 <template>
-    <main class="main">
+    <main class="d-flex flex-wrap mt-5">
         <vue-title title="Login"></vue-title>
-        <section class="d-flex align-items-center justify-content-center">
+        <section class="middle d-flex  justify-content-center">
             <img-guest></img-guest>
         </section>
-        <article class="right d-flex flex-column justify-content-center">
+        <article class="middle d-flex flex-column justify-content-center">
             <h1 class="text-center">Login</h1>
             <error-form v-if="msg" :error="msg"></error-form>
             <b-form @submit.prevent="onSubmit">
@@ -114,32 +114,19 @@ export default {
 </script>
 
 <style scoped>
-.main {
-    height: 80vh;
-    display: flex;
-    /* flex-direction: column; */
-    align-items: center;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-.right {
-    padding: 0% 8%;
+.middle {
+  width: 50vw;
+  padding: 0 8%;
 }
 
 .is-danger {
     border-color: #dc3545;
 }
 
-
-
-
 @media only screen and (max-width: 700px) {
-    .main {
-        height: auto !important;
-    }
-    .right {
-        width: 100%;
-    }
+  .middle {
+    width: 100vw;
+  }
     
 }
 </style>

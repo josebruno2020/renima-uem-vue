@@ -51,6 +51,9 @@ export default {
 .img {
     height: 250px;
 }
+.welcome-text {
+  margin-top: 30px;
+}
 .welcome-text p{
     text-align: justify;
 }
