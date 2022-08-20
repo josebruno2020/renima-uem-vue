@@ -14,8 +14,8 @@
                 <b-collapse id="nav-text-collapse" is-nav>
                     <b-navbar-nav  >
                         <span class="d-flex">
-                            <b-nav-item-dropdown class="navbar-text" right v-for="module in modules" :key="module.id"  >
-                                <!-- Using 'button-content' slot -->
+                            <b-nav-item-dropdown class="navbar-text" right v-for="(module) in modules" :key="module.id">
+                               
                                 <template #button-content>
                                     <span class="mr-2 navbar-text">{{module.name}}</span>
                                     <span v-if="active > module.id">

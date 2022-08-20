@@ -4,7 +4,7 @@
         <div class="principal"> 
             <loading v-if="loading"></loading>
             <template v-else-if="!loading && !isSent">
-                <h1 class="text-center">Formulário - {{module.name}}</h1>
+                <h1 class="text-center">Formulário - {{quiz.title}}</h1>
                 <b-form @submit.prevent="onSubmit" class="form mt-5">
                 <div class="form-group" v-for="question in questions" :key="question.id">
                     <h4 
@@ -46,6 +46,7 @@
                     :msg="modal.msg"
                     :img="modal.img"
                     :type="modal.type"
+                    :moduleId="id"
                 ></modal>
             </template>
         </div>
@@ -66,6 +67,7 @@ export default {
             loading:true,
             module:{},
             questions:[],
+            quiz: null,
             userAnswers:{},
             alert:null,
             incorrectQuestions:[],
@@ -83,7 +85,7 @@ export default {
         'modal':ModalQuestionsVue,
         'vue-title':VueTitle
     },
-    mounted() {
+    created() {
         this.requestQuestions();
     },
     watch: {
@@ -106,51 +108,39 @@ export default {
             this.loading = true;
             this.incorrectQuestions = [];
             this.emptyModal();
-            http.post(apiRoutes.moduleIndex+`/${this.id}/questions`, {
-                answer:this.userAnswers
+            http.post(apiRoutes.module+`/${this.id}/questions`, {
+                answer:this.userAnswers,
+                module_id: this.module.id
             })
             .then(res => {
-                console.log(res);
                 this.loading = false;
                 this.incorrectQuestions = res.data.incoorectAnswers;
                 this.percent = res.data.percent;
-                console.log(this.incorrectQuestions);
                 this.isSent = true;
-                //Status que retorna quando não foi atingido a porcentagem;
                 if(res.status == 206) {
                     this.isSuccess = true;
                     this.modal.type = 'danger';
                     this.modal.title = 'Tente novamente';
                     this.modal.msg = `Você atingiu ${this.percent}% das questões. Tente assistir os vídeos novamente e refazer o questionário.`;
-                    //variaveis para modal de erro
                 } else {
-                    //variaveis para modal de sucesso
                     this.isSuccess = true;
                     this.modal.type = 'success';
                     this.modal.title = 'Parabéns!';
                     this.modal.msg = `Parabéns! Você atingiu ${this.percent}% das respostas!`;
                     
                 }
-
-                this.$emit('moduleActive');
-               
             })
-            .catch(e => {
-                console.log(e);
-            })
+            .catch(e => console.log(e))
         },
         requestQuestions() {
-            http.get(apiRoutes.moduleIndex+`/${this.id}/questions`)
+            http.get(apiRoutes.module+`/${this.id}/questions`)
             .then((res) => {
                 this.module = res.data.module;
-                this.questions = res.data.questions;
-                this.loading = false;
-
+                this.quiz = res.data.quiz;
+                this.questions = this.quiz?.questions;
             })
-            .catch(e => {
-                this.loading = false;
-                console.log(e)
-            })
+            .catch(e => console.log(e))
+            .finally(() => this.loading = false)
         },
         emptyModal() {
             this.isSent = false;

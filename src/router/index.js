@@ -12,7 +12,7 @@ const routes = [
         const token = localStorage.getItem('user-token');
 
         if(token) {
-            next('/module/preparatory');
+            next('/module/list');
         } else {
             next();
         }
@@ -26,7 +26,7 @@ const routes = [
         const token = localStorage.getItem('user-token');
 
         if(token) {
-            next('/module/preparatory');
+            next('/module/list');
         } else {
             next();
         }
@@ -45,7 +45,7 @@ const routes = [
         const token = localStorage.getItem('user-token');
 
         if(token) {
-            next('/module/preparatory');
+            next('/module/list');
         } else {
             next();
         }
@@ -70,11 +70,17 @@ const routes = [
         }
     },
     children: [
-        
         {
-            path:'preparatory', 
+            path: 'list',
+            name: 'ModuleList',
+            component:() => import('../views/Modules/ModuleList.vue'),
+            props: true
+        },
+        {
+            path:':id/preparatory', 
             name:'Preparatory', 
             component:() => import('../views/Modules/Preparatory.vue'),
+            props: true
         },
         {
             path:':slug',
@@ -83,9 +89,9 @@ const routes = [
             props:true
         },
         {
-            path:'/finished',
+            path:'finished/:id',
             props:true,
-            component:() => import('../views/Finished.vue'),
+            component:() => import('../views/Finished.vue')
         },
         
         {

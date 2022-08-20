@@ -1,8 +1,8 @@
 <template>
     <main class="container">
-        <vue-title title="Módulo Preparatório"></vue-title>
+        <vue-title title="Questionário preparatório"></vue-title>
         <div class="principal">
-            <h1>{{module.name}}</h1>
+            <h1>{{quiz.title}}</h1>
             <div class="alert alert-danger" v-if="alert">
                 {{alert}}
                 <b-button @click="onSubmit">Tentar novamente</b-button>
@@ -44,14 +44,15 @@ import LoadingVue from '../../components/Loading.vue'
 import http from '../../services/http.js';
 import apiRoutes from '../../services/apiRoutes';
 import router from '../../router';
-import { getUser, setModuleActive } from '../../services/utils';
 import VueTitle from '../../components/VueTitle.vue';
 export default {
     name:'Preparatory',
+    props: ['id'],
     data:function() {
         return  {
             module:{},
             questions:[],
+            quiz: null,
             loading:true,
             userAnswers:{},
             alert:null
@@ -62,33 +63,22 @@ export default {
         'vue-title':VueTitle
     },
     created() {
-        let user = getUser();
-        //Redirecionamento para quem já concluiu todos os módulos;
-        if(user.is_finished == true || user.is_finished == 1) {
-            return router.push('/finished');
-        }
-        if(user.module_active != 1) {
-            http.get(apiRoutes.moduleShow+`/${user.module_active}`)
-            .then((res) => {
-                let slug = res.data.module.slug
-                return router.push(`/module/${slug}`)
-            }) 
-            .catch(e => {
-                console.log(e);
-            })
-        }
     },
     mounted() {
-        http.get(apiRoutes.modulePreparatory)
+        http.get(`${apiRoutes.module}/${this.id}/preparatory`)
         .then((res) => {
-            this.loading = false;
             let result = res.data;
             this.module = result.module;
-            this.questions = result.questions;
+            this.quiz = result.quiz;
+            this.questions = result.quiz?.questions;
+
+            console.log(res.data);
         })
         .catch(e => {
-            this.loading = false;
             console.log(e);
+        })
+        .finally(() => {
+            this.loading = false;
         })
         
     },
@@ -96,15 +86,12 @@ export default {
         onSubmit() {
             this.alert = null;
             this.loading = true;
-            http.post(apiRoutes.modulePreparatory, {
-                answer: this.userAnswers
+            http.post(`${apiRoutes.module}/${this.id}/preparatory`, {
+                answer: this.userAnswers,
+                module_id: this.module.id
             })
-            .then(res => {
-                let moduleActive = res.data.module_active;
-                setModuleActive(moduleActive);
-                this.$emit('moduleActive');
-                let slug = res.data.slug;
-                router.push(`/module/${slug}`)
+            .then(() => {
+                router.push(`/module/${this.module.slug}`)
             })
             .catch(() => {
                 this.alert = 'Não foi possível responder o formulário. Tente novamente mais tarde!';

@@ -13,7 +13,7 @@
             {{msg}}
         </div>
         <div class="d-flex justify-content-center mt-4">
-            <b-button v-if="type == 'success'" @click="toNextModule">Próximo Módulo</b-button>
+            <b-button v-if="type == 'success'" @click="toNextModule">Finalizar</b-button>
             <b-button v-else @click="backToQuestions">Voltar ao questinário</b-button>
         </div>
         
@@ -26,27 +26,12 @@
 import router from '../router';
 import apiRoutes from '../services/apiRoutes';
 import http from '../services/http';
-import { setModuleActive, setUserFinished } from '../services/utils';
 export default {
     name:'modal',
-    props: ['title', 'type', 'msg'],
+    props: ['title', 'type', 'msg', 'moduleId'],
     methods: {
         toNextModule() {
-            http.get(apiRoutes.updateModuleActive)
-            .then(res => {
-                let moduleActive = res.data.module_active;
-                setModuleActive(moduleActive)
-                this.$emit('moduleActive');
-                //Concluiu os modulos
-                if(res.data.is_finished == true) {
-                    setUserFinished();
-                    return router.push('/finished');
-                }
-                this.searchModule(moduleActive);
-                })
-            .catch(e => {
-                console.log(e)
-            })
+             return router.push(`/module/finished/${this.moduleId}`);
         },
         backToQuestions() {
             return this.$emit('emptyModal');

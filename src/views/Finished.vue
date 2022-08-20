@@ -28,10 +28,9 @@ import VueTitleVue from '../components/VueTitle.vue';
 import router from '../router';
 import apiRoutes from '../services/apiRoutes';
 import http from '../services/http';
-import { getUser } from '../services/utils';
-import webRoutes from '../services/webRoutes'
 export default {
     name:'Finished',
+    props: ['id'],
     data: function() {
         return {
             certificateUrl:'',
@@ -47,16 +46,20 @@ export default {
         'alert':AlertVue,
         'vue-title':VueTitleVue
     },
-    mounted() {
-        let user = getUser();
-        //bloqueio de quem não terminou os módulos;
-        if(user.is_finished == 0 || user.is_finished == false) {
-            return router.push('/module/preparatory');
-        }
-        this.userId = user.id;
-        this.certificateUrl = webRoutes.certificate+this.userId;
+    created() {
+        this.getUserModule()
     },
     methods: {
+        getUserModule() {
+            http.get(`${apiRoutes.userModule}/${this.id}`)
+            .then(res => {
+                console.log(res)
+                if (!res.data.is_finished) {
+                    router.push(`/module/list`)
+                }
+            })
+            .catch(err => console.log(err))
+        },
         sendCertificate() {
             this.loading = true;
             http.get(apiRoutes.emailCertificate+`/${this.userId}`)

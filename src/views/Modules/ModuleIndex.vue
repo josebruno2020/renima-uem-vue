@@ -23,10 +23,9 @@
 <script>
 import LoadingVue from '../../components/Loading.vue'
 import VueTitle from '../../components/VueTitle.vue'
-import router from '../../router'
 import apiRoutes from '../../services/apiRoutes'
 import http from '../../services/http'
-import { getUser } from '../../services/utils'
+import router from '../../router'
 export default {
     name:'ModuleIndex',
     props:['slug'],
@@ -42,36 +41,41 @@ export default {
         'loading':LoadingVue,
         'vue-title':VueTitle
     },
-    mounted() {
-        this.requestModule();
+    async created() {
+        await this.requestModule();
+        this.userModule();
+        
     },
     methods: {
         toQuestions() {
             this.$router.push(`/module/${this.module.id}/questions`);
         },
+        userModule() {
+            http.post(apiRoutes.userModule, {
+                slug: this.slug
+            })
+            .then((res) => {
+                if (!res.data.is_preparatory_done) {
+                    return router.push(`/module/${this.module.id}/preparatory`)
+                }
+
+                if (res.data.is_finished) {
+                    return router.push(`module/finished/${this.module.id}`)
+                }
+            })
+            .catch(err => console.log(err))
+            .finally(() => this.loading = false);
+        },
         requestModule() {
-            let user = getUser();
-            http.get(apiRoutes.moduleIndex+`/${this.slug}`)
+            http.get(apiRoutes.module+`/${this.slug}`)
             .then((res) => {
                 this.module = res.data.module;
                 this.title = this.module.name;
-                if(user.module_active != this.module.id) {
-                    http.get(apiRoutes.moduleShow+`/${user.module_active}`)
-                    .then(res => {
-                        let slug = res.data.module.slug;
-                        return router.push(`/module/${slug}`)
-                    })
-                    .catch(e => {
-                        console.log(e)
-                    })
-                    
-                }
-                this.loading = false;
             })
             .catch(e => {
-                this.loading = false;
                 console.log(e)
             })
+            
         }
     },
     watch: {
