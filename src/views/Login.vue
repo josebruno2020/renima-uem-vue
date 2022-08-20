@@ -99,7 +99,7 @@ export default {
                         fillUser(user, token);
                         
                         this.loading = false;
-                        router.push({name:'Preparatory'});
+                        router.push('/module/list');
                     })
                     .catch(() => {
                         this.loading = false;

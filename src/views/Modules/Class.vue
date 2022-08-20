@@ -7,14 +7,10 @@
         <div class="container-fluid mt-3">
             <h3 class="text-center">{{classUser.name}}</h3>
             <div class="d-flex justify-content-center mt-4">  
-                <div class="video" v-html="classUser.video">
-                   
-                    <!-- <iframe class="module_video" src="https://www.youtube.com/embed/LShDnvobc-c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-                </div>
+                <div class="video" v-html="classUser.video"></div>
             </div>
 
             <div class="form-group d-flex justify-content-center mt-5">
-                
                 <b-button @click="toQuestions"  class="btn" title="Responder Formulário">Responder formulário</b-button> 
             </div>
         </div>

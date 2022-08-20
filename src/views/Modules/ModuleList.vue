@@ -6,8 +6,8 @@
       <loading v-if="loading"></loading>
       <div class="modules">
 
-        <div class="card" style="width: 18rem;" v-for="(module) in modules" :key="module.id">
-          <img :src="module.img" class="card-img-top" alt="...">
+        <div class="card" style="width: 18rem;" v-for="(module) in modules" :key="module.id" :title="module.name">
+          <img :src="module.img" class="card-img-top" :alt="module.name">
           <div class="card-body">
             <h5 class="card-title">{{ module.name }}</h5>
             <p class="card-text">{{ module.description }}</p>
