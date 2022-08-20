@@ -28,6 +28,8 @@ import VueTitleVue from '../components/VueTitle.vue';
 import router from '../router';
 import apiRoutes from '../services/apiRoutes';
 import http from '../services/http';
+import { getUser } from '../services/utils';
+import webRoutes from '../services/webRoutes';
 export default {
     name:'Finished',
     props: ['id'],
@@ -48,12 +50,15 @@ export default {
     },
     created() {
         this.getUserModule()
+        const user = getUser();
+        this.userId = user.id;
+        console.log(this.userId);
+        this.certificateUrl = webRoutes.certificate+this.userId;
     },
     methods: {
         getUserModule() {
             http.get(`${apiRoutes.userModule}/${this.id}`)
             .then(res => {
-                console.log(res)
                 if (!res.data.is_finished) {
                     router.push(`/module/list`)
                 }

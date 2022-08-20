@@ -13,31 +13,10 @@
            
                 <b-collapse id="nav-text-collapse" is-nav>
                     <b-navbar-nav  >
+                        <router-link to="/module/list">
+                            Ensino Remoto
+                        </router-link>
                         <span class="d-flex">
-                            <b-nav-item-dropdown class="navbar-text" right v-for="(module) in modules" :key="module.id">
-                               
-                                <template #button-content>
-                                    <span class="mr-2 navbar-text">{{module.name}}</span>
-                                    <span v-if="active > module.id">
-                                        <img class="img-status" src="../assets/img/check.png" alt="">
-                                    </span>
-                                    <span v-else-if="active == module.id">
-                                        <img class="img-status" src="../assets/img/tasks.png" alt="">
-                                    </span>
-                                    <span v-else>
-                                        <img class="img-status" src="../assets/img/error.png" alt="">
-                                    </span>
-                                </template>
-                                <router-link 
-                                    v-for="aula in module.class" 
-                                    :key="aula.id" 
-                                    class="nav-link" 
-                                    :class="{disabled:active != module.id}" 
-                                    :to="`/class/${aula.id}`"
-                                    >
-                                        {{aula.name}}
-                                    </router-link>
-                            </b-nav-item-dropdown>
                         </span>
                     </b-navbar-nav>
                 </b-collapse>
@@ -59,9 +38,8 @@
 
 
 <script>
-import apiRoutes from '../services/apiRoutes';
-import http from '../services/http';
 import { getUser } from '../services/utils';
+
 export default {
     name:'Menu',
     props:['active'],
@@ -74,13 +52,6 @@ export default {
     },
     created() {
         this.user = getUser();
-        this.moduleActive = this.user.module_active;
-        http.get(apiRoutes.menu)
-        .then((res) => {
-            let result = res.data;
-            this.modules = result.modules;
-        })
-        .catch(e=> console.log(e))
     },
     methods: {
     }

@@ -60,7 +60,7 @@ export default {
                 }
 
                 if (res.data.is_finished) {
-                    return router.push(`module/finished/${this.module.id}`)
+                    return router.push(`/module/finished/${this.module.id}`)
                 }
             })
             .catch(err => console.log(err))
