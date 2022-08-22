@@ -53,7 +53,7 @@ export default {
         const user = getUser();
         this.userId = user.id;
         console.log(this.userId);
-        this.certificateUrl = webRoutes.certificate+this.userId;
+        this.certificateUrl = webRoutes.certificate+this.userId+`?module=${this.id}`;
     },
     methods: {
         getUserModule() {

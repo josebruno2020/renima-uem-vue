@@ -11,7 +11,8 @@
             </div>
 
             <div class="form-group d-flex justify-content-center mt-5">
-                <b-button @click="toQuestions"  class="btn" title="Responder Formulário">Responder formulário</b-button> 
+                <router-link v-if="nextClass" :to="`/class/${nextClass.id}`">Próxima aula >></router-link>
+                <b-button v-if="classUser.number === totalClasses" @click="toQuestions"  class="btn" title="Responder Formulário">Responder formulário</b-button> 
             </div>
         </div>
     </main>
@@ -26,14 +27,16 @@ import apiRoutes from '../../services/apiRoutes'
 import http from '../../services/http'
 import { getUser } from '../../services/utils'
 export default {
-    name:'ModuleIndex',
+    name:'Class',
     props:['id'],
     data:function() {
         return {
             loading:true,
             classUser:{},
             module:{},
-            title:''
+            title:'',
+            totalClasses: 0,
+            nextClass: null
 
         }
     },
@@ -56,6 +59,8 @@ export default {
                 this.classUser = res.data.class;
                 this.title = this.classUser.name;
                 this.module = res.data.module;
+                this.totalClasses = res.data.total;
+                this.nextClass = res.data.next;
                 if(user.module_active != this.module.id) {
                     http.get(apiRoutes.moduleShow+`/${user.module_active}`)
                     .then(res => {
