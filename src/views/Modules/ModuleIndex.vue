@@ -41,7 +41,7 @@ export default {
         'loading':LoadingVue,
         'vue-title':VueTitle
     },
-    async created() {
+    async mounted() {
         await this.requestModule();
         this.userModule();
         
@@ -66,16 +66,15 @@ export default {
             .catch(err => console.log(err))
             .finally(() => this.loading = false);
         },
-        requestModule() {
-            http.get(apiRoutes.module+`/${this.slug}`)
-            .then((res) => {
-                this.module = res.data.module;
+        async requestModule() {
+            try {
+                const {data} = await http.get(apiRoutes.module+`/${this.slug}`)
+                this.module = data.module;
                 this.title = this.module.name;
-            })
-            .catch(e => {
-                console.log(e)
-            })
-            
+
+            } catch(err) {
+                console.log(err)
+            }            
         }
     },
     watch: {
